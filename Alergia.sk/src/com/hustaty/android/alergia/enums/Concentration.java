@@ -6,7 +6,8 @@ public enum Concentration {
 	LOW("Nízka", 3),
 	MIDDLE("Stredná", 4),
 	HIGH("Vysoká", 5),
-	VERY_HIGH("Veľmi vysoká", 6);
+	VERY_HIGH("Veľmi vysoká", 6),
+	UNKNOWN("Neznáma", 0);
 	
 	private String description;
 	

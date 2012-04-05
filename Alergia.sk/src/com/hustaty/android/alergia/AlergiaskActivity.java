@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.widget.RelativeLayout;
@@ -15,10 +16,12 @@ import com.google.ads.AdSize;
 import com.google.ads.AdView;
 import com.hustaty.android.alergia.beans.DistrictStatus;
 import com.hustaty.android.alergia.enums.Alergene;
+import com.hustaty.android.alergia.enums.Concentration;
 import com.hustaty.android.alergia.enums.County;
 import com.hustaty.android.alergia.enums.Direction;
 import com.hustaty.android.alergia.enums.District;
 import com.hustaty.android.alergia.enums.Level;
+import com.hustaty.android.alergia.enums.Prognosis;
 import com.hustaty.android.alergia.util.HttpUtil;
 import com.hustaty.android.alergia.util.XmlUtil;
 
@@ -269,18 +272,21 @@ public class AlergiaskActivity extends Activity {
 	}
 	
 	private DistrictStatus loadData() {
-		String url = "http://alergia.sk/pelove-spravodajstvo/verejnost/xml?xml=" + currentCounty.getCountyNumber() + "-" + currentAlergene.getAlergeneNumber();
-		String content = HttpUtil.getContent(url);
-		
-		XmlUtil xmlUtil = new XmlUtil(content, currentAlergene.getAlergeneNumber(), currentCounty.getCountyNumber());
-		List<DistrictStatus> districtStatusList = xmlUtil.getDistrictStatusList();
-		for(DistrictStatus districtStatus : districtStatusList) {
-			if(currentAlergene.equals(districtStatus.getAlergene()) && currentDistrict.equals(districtStatus.getDistrict())) {
-				return districtStatus;
+		String url = "http://alergia.sk/pelove-spravodajstvo/verejnost/xml?xml=" + AlergiaskActivity.currentCounty.getCountyNumber() + "-" + AlergiaskActivity.currentAlergene.getAlergeneNumber();
+		try {
+			String content = HttpUtil.getContent(url);
+			
+			XmlUtil xmlUtil = new XmlUtil(content, AlergiaskActivity.currentAlergene.getAlergeneNumber(), AlergiaskActivity.currentCounty.getCountyNumber());
+			List<DistrictStatus> districtStatusList = xmlUtil.getDistrictStatusList();
+			for(DistrictStatus districtStatus : districtStatusList) {
+				if(AlergiaskActivity.currentAlergene.equals(districtStatus.getAlergene()) && AlergiaskActivity.currentDistrict.equals(districtStatus.getDistrict())) {
+					return districtStatus;
+				}
 			}
+		} catch (Exception e) {
+			Log.e(LOG_TAG, e.getMessage());
 		}
-		//throw new Exception("Network error.");
-		return null;
+		return new DistrictStatus(AlergiaskActivity.currentDistrict, AlergiaskActivity.currentAlergene, Prognosis.UNKNOWN, Concentration.UNKNOWN);
 	}
 	
 }

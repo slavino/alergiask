@@ -6,7 +6,8 @@ public enum Prognosis {
 	STABLE_POSSIBLE_GROWTH("equal_up", "Koncentrácia ustálená,\n\t\t\t možné zvýšenie"),
 	STABLE("equal", "Koncentrácia ustálená"),
 	STABLE_POSSIBLE_REDUCTION("equal_down", "Koncentrácia ustálená,\n\t\t\t možné zníženie"),
-	REDUCTION("arrow_down", "Zníženie koncentrácie");
+	REDUCTION("arrow_down", "Zníženie koncentrácie"),
+	UNKNOWN("unknown", "Neznáma");
 
 	private String description;
 	private String humanReadableDescription;
