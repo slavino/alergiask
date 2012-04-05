@@ -94,7 +94,13 @@ public class DistrictStatus {
 				+ concentration + "]";
 	}
 	
-	
+	public String toHumanReadableString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Koncentrácia: ");
+		sb.append(this.concentration.getDescription() + "\n");
+		sb.append("Prognóza: " + this.prognosis.getHumanReadableDescription());
+		return sb.toString(); 
+	}
 	
 
 }

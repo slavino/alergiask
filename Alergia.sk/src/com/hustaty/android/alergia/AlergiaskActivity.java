@@ -6,11 +6,13 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.MotionEvent;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
+import com.google.ads.AdRequest;
+import com.google.ads.AdSize;
+import com.google.ads.AdView;
 import com.hustaty.android.alergia.beans.DistrictStatus;
 import com.hustaty.android.alergia.enums.Alergene;
 import com.hustaty.android.alergia.enums.County;
@@ -38,76 +40,86 @@ public class AlergiaskActivity extends Activity {
 	
 	private int startYcoord;
 
+	private TextView countyNameTextView;
+	private TextView districtNameTextView;
+	private TextView alergeneNameTextView;
+
+	//Temporary and will be removed
+	private TextView alergeneDetailsTextView;
+	
+	private AdView adView;
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		container = (RelativeLayout) findViewById(R.id.container);
+		this.container = (RelativeLayout) findViewById(R.id.container);
 
-		TextView countyNameTextView = new TextView(container.getContext());
+		this.countyNameTextView = new TextView(container.getContext());
 		LayoutParams layoutParams = new RelativeLayout.LayoutParams(
 				RelativeLayout.LayoutParams.WRAP_CONTENT,
 				RelativeLayout.LayoutParams.WRAP_CONTENT);
 		layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL, R.id.container);
 		layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, R.id.container);
 		layoutParams.topMargin = 5;
-		countyNameTextView.setText(counties.get(0));
-		countyNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 25);
-		countyNameTextView.setId(0x7f060000);
-		container.addView(countyNameTextView, layoutParams);
+		this.countyNameTextView.setText(counties.get(0));
+		this.countyNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 25);
+		this.countyNameTextView.setId(0x7f060000);
+		this.container.addView(this.countyNameTextView, layoutParams);
 		
-		TextView districtNameTextView = new TextView(container.getContext());
+		this.districtNameTextView = new TextView(container.getContext());
 		layoutParams = new RelativeLayout.LayoutParams(
 				RelativeLayout.LayoutParams.WRAP_CONTENT,
 				RelativeLayout.LayoutParams.WRAP_CONTENT);
 		layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL, R.id.container);
 		layoutParams.addRule(RelativeLayout.BELOW, 0x7f060000);
 		layoutParams.topMargin = 5;
-		districtNameTextView.setText("");
-		districtNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 22);
-		districtNameTextView.setId(0x7f070000);
-		container.addView(districtNameTextView, layoutParams);
+		this.districtNameTextView.setText("");
+		this.districtNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 22);
+		this.districtNameTextView.setId(0x7f070000);
+		this.container.addView(this.districtNameTextView, layoutParams);
 		
-		TextView alergeneNameTextView = new TextView(container.getContext());
+		this.alergeneNameTextView = new TextView(container.getContext());
 		layoutParams = new RelativeLayout.LayoutParams(
 				RelativeLayout.LayoutParams.WRAP_CONTENT,
 				RelativeLayout.LayoutParams.WRAP_CONTENT);
 		layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL, R.id.container);
 		layoutParams.addRule(RelativeLayout.BELOW, 0x7f070000);
 		layoutParams.topMargin = 5;
-		alergeneNameTextView.setText("");
-		alergeneNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
-		alergeneNameTextView.setId(0x7f080000);
-		container.addView(alergeneNameTextView, layoutParams);
-	
-		ImageView barImageView = new ImageView(container.getContext());
-		layoutParams = new RelativeLayout.LayoutParams(
-				RelativeLayout.LayoutParams.WRAP_CONTENT,
-				RelativeLayout.LayoutParams.FILL_PARENT);
-		layoutParams.addRule(RelativeLayout.BELOW, 0x7f080000);
-		layoutParams.addRule(RelativeLayout.ALIGN_RIGHT, R.id.container);
-		layoutParams.topMargin = 5;
-		barImageView.setId(0x7f080001);
-		barImageView.setImageResource(R.drawable.barlevel0);
-		container.addView(barImageView, layoutParams);
-
+		this.alergeneNameTextView.setText("");
+		this.alergeneNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
+		this.alergeneNameTextView.setId(0x7f080000);
+		this.container.addView(this.alergeneNameTextView, layoutParams);
 		
 		//Temporary output will be removed
-		TextView alergeneDetailsTextView = new TextView(container.getContext());
+		this.alergeneDetailsTextView = new TextView(container.getContext());
 		layoutParams = new RelativeLayout.LayoutParams(
 				RelativeLayout.LayoutParams.WRAP_CONTENT,
 				RelativeLayout.LayoutParams.WRAP_CONTENT);
 		layoutParams.addRule(RelativeLayout.ALIGN_LEFT, R.id.container);
-		layoutParams.addRule(RelativeLayout.BELOW, 0x7f080000);
+		layoutParams.addRule(RelativeLayout.BELOW, this.alergeneNameTextView.getId());
 		layoutParams.topMargin = 5;
-		alergeneDetailsTextView.setText("");
-		alergeneDetailsTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
-		alergeneDetailsTextView.setId(0x7f090000);
-		container.addView(alergeneDetailsTextView, layoutParams);
+		this.alergeneDetailsTextView.setText("");
+		this.alergeneDetailsTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
+		this.alergeneDetailsTextView.setId(0x7f090000);
+		this.container.addView(this.alergeneDetailsTextView, layoutParams);
 		//END - Temporary output will be removed
-		
+
+		//Google AdMob advertisment
+		this.adView = new AdView(this, AdSize.BANNER, "Test");
+		layoutParams = new RelativeLayout.LayoutParams(
+				RelativeLayout.LayoutParams.WRAP_CONTENT,
+				RelativeLayout.LayoutParams.WRAP_CONTENT);
+		layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL, R.id.container);
+		layoutParams.addRule(RelativeLayout.BELOW, this.alergeneDetailsTextView.getId());
+		layoutParams.topMargin = 5;
+		this.container.addView(adView, layoutParams);
+
+		this.adView.loadAd(new AdRequest());
+		//Google AdMob advertisment
+
 	}
 
 	@Override
@@ -151,14 +163,16 @@ public class AlergiaskActivity extends Activity {
 
 		return true;
 	}
+	
+	@Override
+	protected void onDestroy() {
+		if (adView != null) {
+			adView.destroy();
+		}
+		super.onDestroy();
+	}
 
 	private void modify(Direction direction) {
-		TextView countyNameTextView = (TextView)findViewById(0x7f060000);
-		TextView districtNameTextView = (TextView)findViewById(0x7f070000);
-		TextView alergeneNameTextView = (TextView)findViewById(0x7f080000);
-		TextView alergeneDetailsTextView = (TextView)findViewById(0x7f090000);
-		ImageView barImageView = (ImageView)findViewById(0x7f080001);
-
 		
 		List<String> districts = District.getDistrictNamesByCounty(County.getCountyByCountyName(countyNameTextView.getText().toString()));
 		List<String> alergenes = Alergene.getAlergenes(); 
@@ -169,19 +183,19 @@ public class AlergiaskActivity extends Activity {
 					if(counties.get(c).equals(countyNameTextView.getText())) {
 						if(direction == Direction.RIGHT) {
 							int index = (c-1 >= 0 ? c-1 : counties.size()-1 );
-							countyNameTextView.setText(counties.get(index));
-							currentCounty = County.getCountyByCountyName(counties.get(index));
+							this.countyNameTextView.setText(counties.get(index));
+							this.currentCounty = County.getCountyByCountyName(counties.get(index));
 							break;
 						} else if(direction == Direction.LEFT) {
 							int index = (c+1 >= counties.size() ? 0 : c+1);
-							countyNameTextView.setText(counties.get(index));
-							currentCounty = County.getCountyByCountyName(counties.get(index));
+							this.countyNameTextView.setText(counties.get(index));
+							this.currentCounty = County.getCountyByCountyName(counties.get(index));
 							break;
 						} else if(direction == Direction.UP) {
-							depthLevel = Level.DISTRICT;
+							this.depthLevel = Level.DISTRICT;
 							if(districts.size() > 0 && districts.get(0) != null) {
-								districtNameTextView.setText(districts.get(0));
-								currentDistrict = District.getDistrictByDistrictName(districts.get(0));
+								this.districtNameTextView.setText(districts.get(0));
+								this.currentDistrict = District.getDistrictByDistrictName(districts.get(0));
 							}
 							break;
 						} else if(direction == Direction.DOWN) {
@@ -201,24 +215,24 @@ public class AlergiaskActivity extends Activity {
 							} else if(direction == Direction.LEFT) {
 								index = (c+1 >= districts.size() ? 0 : c+1);
 							}
-							districtNameTextView.setText(districts.get(index));
-							currentDistrict = District.getDistrictByDistrictName(districts.get(index));
+							this.districtNameTextView.setText(districts.get(index));
+							this.currentDistrict = District.getDistrictByDistrictName(districts.get(index));
 							break;
 						}
 					}
 				}
 				if(direction == Direction.UP) {
 					//TODO
-					depthLevel = Level.ALERGENE;
+					this.depthLevel = Level.ALERGENE;
 					if(alergenes.size() > 0 && alergenes.get(0) != null) {
-						alergeneNameTextView.setText(alergenes.get(0));
-						currentAlergene = Alergene.getAlergeneByName(alergenes.get(0));
+						this.alergeneNameTextView.setText(alergenes.get(0));
+						this.currentAlergene = Alergene.getAlergeneByName(alergenes.get(0));
 					}
 				} else if(direction == Direction.DOWN) {
 					//TODO
-					depthLevel = Level.COUNTY;
-					districtNameTextView.setText("");
-					alergeneDetailsTextView.setText("");
+					this.depthLevel = Level.COUNTY;
+					this.districtNameTextView.setText("");
+					this.alergeneDetailsTextView.setText("");
 				}
 				break;
 			case ALERGENE :
@@ -231,10 +245,11 @@ public class AlergiaskActivity extends Activity {
 							} else if(direction == Direction.LEFT) {
 								index = (c+1 >= alergenes.size() ? 0 : c+1);
 							}
-							alergeneNameTextView.setText(alergenes.get(index));
+							this.alergeneNameTextView.setText(alergenes.get(index));
 							currentAlergene = Alergene.getAlergeneByName(alergenes.get(index));
-							alergeneDetailsTextView.setText("Loading...");
-							alergeneDetailsTextView.setText(loadData());
+							this.alergeneDetailsTextView.setText("Loading...");
+							DistrictStatus data = loadData();
+							this.alergeneDetailsTextView.setText(data.toHumanReadableString());
 							break;
 						}
 					}
@@ -242,19 +257,20 @@ public class AlergiaskActivity extends Activity {
 				if(direction == Direction.UP) {
 					//TODO we are at bottom nothing more to display...maybe reload data?
 					depthLevel = Level.ALERGENE;
-					alergeneDetailsTextView.setText("Loading...");
-					alergeneDetailsTextView.setText(loadData());
+					this.alergeneDetailsTextView.setText("Loading...");
+					DistrictStatus data = loadData();
+					this.alergeneDetailsTextView.setText(data.toHumanReadableString());
 				} else if(direction == Direction.DOWN) {
 					//TODO
-					depthLevel = Level.DISTRICT;
-					alergeneNameTextView.setText("");
-					alergeneDetailsTextView.setText("");
+					this.depthLevel = Level.DISTRICT;
+					this.alergeneNameTextView.setText("");
+					this.alergeneDetailsTextView.setText("");
 				}
 				break;
 		}
 	}
 	
-	private String loadData() {
+	private DistrictStatus loadData() {
 		String url = "http://alergia.sk/pelove-spravodajstvo/verejnost/xml?xml=" + currentCounty.getCountyNumber() + "-" + currentAlergene.getAlergeneNumber();
 		String content = HttpUtil.getContent(url);
 		
@@ -262,10 +278,11 @@ public class AlergiaskActivity extends Activity {
 		List<DistrictStatus> districtStatusList = xmlUtil.getDistrictStatusList();
 		for(DistrictStatus districtStatus : districtStatusList) {
 			if(currentAlergene.equals(districtStatus.getAlergene()) && currentDistrict.equals(districtStatus.getDistrict())) {
-				return districtStatus.toString();
+				return districtStatus;
 			}
 		}
-		return content;
+		//throw new Exception("Network error.");
+		return null;
 	}
 	
 }
