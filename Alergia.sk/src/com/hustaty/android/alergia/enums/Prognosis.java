@@ -3,9 +3,9 @@ package com.hustaty.android.alergia.enums;
 public enum Prognosis {
 
 	INCREASING("arrow_up", "Zvýšenie koncentrácie"),
-	STABLE_POSSIBLE_GROWTH("equal_up", "Koncentrácia ustálená, možné zvýšenie"),
+	STABLE_POSSIBLE_GROWTH("equal_up", "Koncentrácia ustálená,\n\t\t\t možné zvýšenie"),
 	STABLE("equal", "Koncentrácia ustálená"),
-	STABLE_POSSIBLE_REDUCTION("equal_down", "Koncentrácia ustálená, možné zníženie"),
+	STABLE_POSSIBLE_REDUCTION("equal_down", "Koncentrácia ustálená,\n\t\t\t možné zníženie"),
 	REDUCTION("arrow_down", "Zníženie koncentrácie");
 
 	private String description;

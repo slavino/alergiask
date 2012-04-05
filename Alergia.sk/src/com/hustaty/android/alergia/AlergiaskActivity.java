@@ -93,19 +93,17 @@ public class AlergiaskActivity extends Activity {
 		this.alergeneNameTextView.setId(0x7f080000);
 		this.container.addView(this.alergeneNameTextView, layoutParams);
 		
-		//Temporary output will be removed
 		this.alergeneDetailsTextView = new TextView(container.getContext());
 		layoutParams = new RelativeLayout.LayoutParams(
 				RelativeLayout.LayoutParams.WRAP_CONTENT,
 				RelativeLayout.LayoutParams.WRAP_CONTENT);
-		layoutParams.addRule(RelativeLayout.ALIGN_LEFT, R.id.container);
-		layoutParams.addRule(RelativeLayout.BELOW, this.alergeneNameTextView.getId());
+		layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, R.id.container);
+		layoutParams.addRule(RelativeLayout.CENTER_VERTICAL, R.id.container);
 		layoutParams.topMargin = 5;
 		this.alergeneDetailsTextView.setText("");
 		this.alergeneDetailsTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
 		this.alergeneDetailsTextView.setId(0x7f090000);
 		this.container.addView(this.alergeneDetailsTextView, layoutParams);
-		//END - Temporary output will be removed
 
 		//Google AdMob advertisment
 		this.adView = new AdView(this, AdSize.BANNER, "Test");
@@ -124,7 +122,7 @@ public class AlergiaskActivity extends Activity {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		TextView textView = (TextView) findViewById(R.id.textView1);
+		//TextView textView = (TextView) findViewById(R.id.textView1);
 
 		switch (event.getAction()) {
 			case MotionEvent.ACTION_DOWN: {
@@ -142,18 +140,18 @@ public class AlergiaskActivity extends Activity {
 				int deltaY = startYcoord - (int)event.getRawY();
 				if(Math.abs((float)deltaX/(float)deltaY) > 1) {
 					if(deltaX >= 0) {
-						textView.setText("to left " + depthLevel + " | " + currentCounty + currentDistrict + currentAlergene);
+						//textView.setText("to left " + depthLevel + " | " + currentCounty + currentDistrict + currentAlergene);
 						modify(Direction.LEFT);
 					} else {
-						textView.setText("to right "  + depthLevel + " | " + currentCounty + currentDistrict + currentAlergene);
+						//textView.setText("to right "  + depthLevel + " | " + currentCounty + currentDistrict + currentAlergene);
 						modify(Direction.RIGHT);
 					}
 				} else {
 					if(deltaY >= 0) {
-						textView.setText("up " + depthLevel + " | " + currentCounty + currentDistrict + currentAlergene);
+						//textView.setText("up " + depthLevel + " | " + currentCounty + currentDistrict + currentAlergene);
 						modify(Direction.UP);
 					} else {
-						textView.setText("down " + depthLevel + " | " + currentCounty + currentDistrict + currentAlergene);
+						//textView.setText("down " + depthLevel + " | " + currentCounty + currentDistrict + currentAlergene);
 						modify(Direction.DOWN);
 					}
 				}
@@ -184,18 +182,18 @@ public class AlergiaskActivity extends Activity {
 						if(direction == Direction.RIGHT) {
 							int index = (c-1 >= 0 ? c-1 : counties.size()-1 );
 							this.countyNameTextView.setText(counties.get(index));
-							this.currentCounty = County.getCountyByCountyName(counties.get(index));
+							AlergiaskActivity.currentCounty = County.getCountyByCountyName(counties.get(index));
 							break;
 						} else if(direction == Direction.LEFT) {
 							int index = (c+1 >= counties.size() ? 0 : c+1);
 							this.countyNameTextView.setText(counties.get(index));
-							this.currentCounty = County.getCountyByCountyName(counties.get(index));
+							AlergiaskActivity.currentCounty = County.getCountyByCountyName(counties.get(index));
 							break;
 						} else if(direction == Direction.UP) {
 							this.depthLevel = Level.DISTRICT;
 							if(districts.size() > 0 && districts.get(0) != null) {
 								this.districtNameTextView.setText(districts.get(0));
-								this.currentDistrict = District.getDistrictByDistrictName(districts.get(0));
+								AlergiaskActivity.currentDistrict = District.getDistrictByDistrictName(districts.get(0));
 							}
 							break;
 						} else if(direction == Direction.DOWN) {
@@ -216,7 +214,7 @@ public class AlergiaskActivity extends Activity {
 								index = (c+1 >= districts.size() ? 0 : c+1);
 							}
 							this.districtNameTextView.setText(districts.get(index));
-							this.currentDistrict = District.getDistrictByDistrictName(districts.get(index));
+							AlergiaskActivity.currentDistrict = District.getDistrictByDistrictName(districts.get(index));
 							break;
 						}
 					}
@@ -226,7 +224,7 @@ public class AlergiaskActivity extends Activity {
 					this.depthLevel = Level.ALERGENE;
 					if(alergenes.size() > 0 && alergenes.get(0) != null) {
 						this.alergeneNameTextView.setText(alergenes.get(0));
-						this.currentAlergene = Alergene.getAlergeneByName(alergenes.get(0));
+						AlergiaskActivity.currentAlergene = Alergene.getAlergeneByName(alergenes.get(0));
 					}
 				} else if(direction == Direction.DOWN) {
 					//TODO

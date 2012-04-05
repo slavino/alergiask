@@ -97,7 +97,7 @@ public class DistrictStatus {
 	public String toHumanReadableString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Koncentrácia: ");
-		sb.append(this.concentration.getDescription() + "\n");
+		sb.append(this.concentration.getDescription() + "\n\n");
 		sb.append("Prognóza: " + this.prognosis.getHumanReadableDescription());
 		return sb.toString(); 
 	}

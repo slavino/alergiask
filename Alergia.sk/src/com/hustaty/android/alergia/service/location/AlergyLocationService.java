@@ -1,5 +1,7 @@
 package com.hustaty.android.alergia.service.location;
 
+import static com.hustaty.android.alergia.AlergiaskActivity.LOG_TAG;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -12,8 +14,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
-
-import static com.hustaty.android.alergia.AlergiaskActivity.LOG_TAG;
 
 public class AlergyLocationService {
 
