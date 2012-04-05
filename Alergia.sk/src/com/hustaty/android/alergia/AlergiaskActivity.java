@@ -114,7 +114,7 @@ public class AlergiaskActivity extends Activity {
 				RelativeLayout.LayoutParams.WRAP_CONTENT,
 				RelativeLayout.LayoutParams.WRAP_CONTENT);
 		layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL, R.id.container);
-		layoutParams.addRule(RelativeLayout.BELOW, this.alergeneDetailsTextView.getId());
+		layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, this.alergeneDetailsTextView.getId());
 		layoutParams.topMargin = 5;
 		this.container.addView(this.adView, layoutParams);
 
