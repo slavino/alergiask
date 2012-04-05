@@ -77,7 +77,7 @@ public class AlergiaskActivity extends Activity {
 				RelativeLayout.LayoutParams.WRAP_CONTENT,
 				RelativeLayout.LayoutParams.WRAP_CONTENT);
 		layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL, R.id.container);
-		layoutParams.addRule(RelativeLayout.BELOW, 0x7f060000);
+		layoutParams.addRule(RelativeLayout.BELOW, this.countyNameTextView.getId());
 		layoutParams.topMargin = 5;
 		this.districtNameTextView.setText("");
 		this.districtNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 22);
@@ -89,7 +89,7 @@ public class AlergiaskActivity extends Activity {
 				RelativeLayout.LayoutParams.WRAP_CONTENT,
 				RelativeLayout.LayoutParams.WRAP_CONTENT);
 		layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL, R.id.container);
-		layoutParams.addRule(RelativeLayout.BELOW, 0x7f070000);
+		layoutParams.addRule(RelativeLayout.BELOW, this.districtNameTextView.getId());
 		layoutParams.topMargin = 5;
 		this.alergeneNameTextView.setText("");
 		this.alergeneNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
@@ -103,20 +103,20 @@ public class AlergiaskActivity extends Activity {
 		layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, R.id.container);
 		layoutParams.addRule(RelativeLayout.CENTER_VERTICAL, R.id.container);
 		layoutParams.topMargin = 5;
-		this.alergeneDetailsTextView.setText("");
+		this.alergeneDetailsTextView.setText("Vertikálnymi a horizontálnymi\nťahmi po displeji ovládate\nzobrazené položky.");
 		this.alergeneDetailsTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
 		this.alergeneDetailsTextView.setId(0x7f090000);
 		this.container.addView(this.alergeneDetailsTextView, layoutParams);
 
 		//Google AdMob advertisment
-		this.adView = new AdView(this, AdSize.BANNER, "Test");
+		this.adView = new AdView(this, AdSize.BANNER, "a14f7d7523406d6");
 		layoutParams = new RelativeLayout.LayoutParams(
 				RelativeLayout.LayoutParams.WRAP_CONTENT,
 				RelativeLayout.LayoutParams.WRAP_CONTENT);
 		layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL, R.id.container);
 		layoutParams.addRule(RelativeLayout.BELOW, this.alergeneDetailsTextView.getId());
 		layoutParams.topMargin = 5;
-		this.container.addView(adView, layoutParams);
+		this.container.addView(this.adView, layoutParams);
 
 		this.adView.loadAd(new AdRequest());
 		//Google AdMob advertisment
@@ -167,8 +167,8 @@ public class AlergiaskActivity extends Activity {
 	
 	@Override
 	protected void onDestroy() {
-		if (adView != null) {
-			adView.destroy();
+		if (this.adView != null) {
+			this.adView.destroy();
 		}
 		super.onDestroy();
 	}
