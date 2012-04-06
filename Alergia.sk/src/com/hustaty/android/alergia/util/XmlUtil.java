@@ -49,6 +49,7 @@ public class XmlUtil {
 				.replace("<bgr>/pelove-spravodajstvo/public/mapy/ba_kraj.swf</bgr>", "")
 				.replace(".gif", "")
 				.replace("smile", "")
+				.replace("> <", "><")
 				.replace("\n", "");
 		
 		
@@ -90,11 +91,22 @@ public class XmlUtil {
 			
 			Node node = nodeList.item(i);
 			NamedNodeMap nodeMap = node.getAttributes();
+			
 			int x = Integer.parseInt(nodeMap.getNamedItem("x").getNodeValue());
 			int y = Integer.parseInt(nodeMap.getNamedItem("y").getNodeValue());
 
-			String concentrationString = node.getChildNodes().item(0).getTextContent();
-			String prognosisString = node.getChildNodes().item(1).getTextContent();
+			String concentrationString = "0";
+			String prognosisString = "unknown";
+			
+			NodeList infoNodeList = node.getChildNodes();
+			for(int j=0 ; j < infoNodeList.getLength(); j++) {
+				Node infoSubNode = infoNodeList.item(j);
+				if("koncentracia".equals(infoSubNode.getNodeName())) {
+					concentrationString = infoSubNode.getTextContent();
+				} else if("prognoza".equals(infoSubNode.getNodeName())) {
+					prognosisString = infoSubNode.getTextContent();
+				}
+			}
 			
 			County county = County.getCountyByCountyId(this.countyId);
 			for(District district : districtList) {
