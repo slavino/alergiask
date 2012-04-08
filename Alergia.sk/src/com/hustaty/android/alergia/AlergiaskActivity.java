@@ -205,7 +205,9 @@ public class AlergiaskActivity extends Activity {
 	}
 
 	
-	
+	/**
+	 * OnTrackballEvent.
+	 */
 	@Override
 	public boolean onTrackballEvent(MotionEvent event) {
 		
