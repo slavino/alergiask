@@ -204,6 +204,36 @@ public class AlergiaskActivity extends Activity {
 
 	}
 
+	
+	
+	@Override
+	public boolean onTrackballEvent(MotionEvent event) {
+		
+		switch (event.getAction()) {
+			case MotionEvent.ACTION_MOVE: {
+				float x = event.getRawX();
+				float y = event.getRawY();
+				if (Math.abs((float) x / (float) y) > 1) {
+					if (x <= 0) {
+						modify(Direction.LEFT);
+					} else {
+						modify(Direction.RIGHT);
+					}
+				} else {
+					if (y <= 0) {
+						modify(Direction.UP);
+					} else {
+						modify(Direction.DOWN);
+					}
+				}
+				break;
+			}
+
+		}
+
+		return super.onTrackballEvent(event);
+	}
+
 	/**
 	 * OnTouchEvent.
 	 */
@@ -216,10 +246,6 @@ public class AlergiaskActivity extends Activity {
 			startYcoord = (int) event.getRawY();
 			break;
 		}
-
-		// case MotionEvent.ACTION_MOVE: {
-		// break;
-		// }
 
 		case MotionEvent.ACTION_UP: {
 			int deltaX = startXcoord - (int) event.getRawX();
