@@ -8,6 +8,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -86,7 +87,8 @@ public class AlergyLocationService {
 				Log.d(LOG_TAG,
 						"AddressLine[" + i + "]: " + address.getAddressLine(i));
 			}
-
+//			Intent i = new Intent();
+			
 		}
 	}
 
