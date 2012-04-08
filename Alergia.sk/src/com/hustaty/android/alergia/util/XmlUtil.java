@@ -1,5 +1,7 @@
 package com.hustaty.android.alergia.util;
 
+import static com.hustaty.android.alergia.AlergiaskActivity.LOG_TAG;
+
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -66,16 +68,15 @@ public class XmlUtil {
 			
 			
 		} catch (ParserConfigurationException e) {
-			Log.e("Error: ", e.getMessage());
+			Log.e(LOG_TAG, e.getMessage());
 			return null;
 		} catch (SAXException e) {
-			Log.e("Error: ", e.getMessage());
+			Log.e(LOG_TAG, e.getMessage());
 			return null;
 		} catch (IOException e) {
-			Log.e("Error: ", e.getMessage());
+			Log.e(LOG_TAG, e.getMessage());
 			return null;
 		}
-		// return DOM
 		return doc;
 	}
 
@@ -109,6 +110,7 @@ public class XmlUtil {
 			}
 			
 			County county = County.getCountyByCountyId(this.countyId);
+
 			for(District district : districtList) {
 				if(district.getX() == x && district.getY() == y) {
 					//TODO

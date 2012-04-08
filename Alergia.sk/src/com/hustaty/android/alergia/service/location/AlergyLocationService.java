@@ -3,6 +3,7 @@ package com.hustaty.android.alergia.service.location;
 import static com.hustaty.android.alergia.AlergiaskActivity.LOG_TAG;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -15,8 +16,13 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.hustaty.android.alergia.enums.District;
+import com.hustaty.android.alergia.enums.ZIPCode;
+
 public class AlergyLocationService {
 
+	private List<Address> addressList = new ArrayList<Address>();
+	
 	public AlergyLocationService(final Activity activity) {
 		super();
 
@@ -33,11 +39,11 @@ public class AlergyLocationService {
 						activity.getApplicationContext());
 				
 				try {
-					List<Address> addressList = geocoder.getFromLocation(
+					addressList = geocoder.getFromLocation(
 							location.getLatitude(), location.getLongitude(), 1);
 					logAddressList(addressList);
 				} catch (IOException e) {
-					Log.e("Alergia.sk", e.getMessage());
+					Log.e(LOG_TAG, e.getMessage());
 				}
 				// makeUseOfNewLocation(location);
 
@@ -59,10 +65,8 @@ public class AlergyLocationService {
 
 		// Register the listener with the Location Manager to receive location
 		// updates
-		locationManager.requestLocationUpdates(
-				LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-		locationManager.requestLocationUpdates(
-				LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+//		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
 	}
 
 	private void logAddressList(List<Address> addressList) {
@@ -86,4 +90,22 @@ public class AlergyLocationService {
 		}
 	}
 
+	public District getDistrictFromLastAddress() {
+		
+		if(this.addressList.size() == 0) {
+			return null;
+		}
+		
+		Address address = this.addressList.get(0);
+		ZIPCode zipCode = ZIPCode.getByZIPcode(address.getPostalCode());
+		
+		if(zipCode != null) {
+			return District.getDistrictByDistrictName(zipCode.getDistrict());
+		}
+		
+		return null;
+	}
+
+
+	
 }

@@ -23,6 +23,7 @@ import com.hustaty.android.alergia.enums.Direction;
 import com.hustaty.android.alergia.enums.District;
 import com.hustaty.android.alergia.enums.Level;
 import com.hustaty.android.alergia.enums.Prognosis;
+import com.hustaty.android.alergia.service.location.AlergyLocationService;
 import com.hustaty.android.alergia.util.HttpUtil;
 import com.hustaty.android.alergia.util.XmlUtil;
 
@@ -64,6 +65,17 @@ public class AlergiaskActivity extends Activity {
 
 		this.container = (RelativeLayout) findViewById(R.id.container);
 
+		AlergyLocationService locationService = new AlergyLocationService(this);
+
+//		District district = locationService.getDistrictFromLastAddress();
+
+//		if(district != null) {
+//			currentCounty = district.getCounty();
+//			currentDistrict = district;
+//			currentAlergene = Alergene.OVERALL;
+//			depthLevel = Level.ALERGENE;
+//		}
+		
 		initUI(null);
 	}
 
@@ -178,7 +190,7 @@ public class AlergiaskActivity extends Activity {
 		this.alergeneDetailsTextView.setId(0x7f090000);
 		this.container.addView(this.alergeneDetailsTextView, layoutParams);
 
-		// Google AdMob advertisment
+		// Google AdMob advertisement
 		AdSize adSize = AdSize.BANNER;
 
 		if(newConfig != null) {
