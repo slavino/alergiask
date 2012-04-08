@@ -161,9 +161,5 @@ public class XmlUtil {
 	public List<DistrictStatus> getDistrictStatusList() {
 		return districtStatusList;
 	}
-
-	
-	
-	
 	
 }
