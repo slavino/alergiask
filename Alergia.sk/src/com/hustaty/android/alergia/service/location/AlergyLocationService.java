@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
@@ -103,7 +102,7 @@ public class AlergyLocationService {
 			
 			if(!activity.isGotGPSfix()) {
 				Toast toast = Toast.makeText(this.activity.getApplicationContext(), 
-						"Got loaction update: " + address.getSubAdminArea() + ", " + address.getAdminArea() , 
+						"Got your location:\n" + address.getSubAdminArea() + ", " + address.getAdminArea() , 
 						Toast.LENGTH_LONG);
 				toast.show();
 			}
