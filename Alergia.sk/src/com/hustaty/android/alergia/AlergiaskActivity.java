@@ -274,10 +274,10 @@ public class AlergiaskActivity extends Activity {
 					modify(Direction.RIGHT);
 				}
 			} else {
-				if (deltaY >= 0) {
-					modify(Direction.UP);
-				} else {
+				if (deltaY > 0) {
 					modify(Direction.DOWN);
+				} else {
+					modify(Direction.UP);
 				}
 			}
 			break;
