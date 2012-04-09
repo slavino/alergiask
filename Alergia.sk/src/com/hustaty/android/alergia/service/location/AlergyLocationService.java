@@ -79,7 +79,6 @@ public class AlergyLocationService {
 		// updates
 		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
 		
-		
 	}
 
 	private void logAddressList(List<Address> addressList) {
