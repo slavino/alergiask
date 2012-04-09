@@ -18,10 +18,10 @@ public class CacheUtil {
 	}
 	
 	public static CacheUtil getInstance() {
-		if(instance != null) {
-			return instance;
+		if(instance == null) {
+			instance = new CacheUtil();
 		}
-		return new CacheUtil();
+		return instance;
 	}
 	
 	public static HttpResponseCacheObject get(String id) {
@@ -47,7 +47,7 @@ public class CacheUtil {
 	
 
 	private Map<String, HttpResponseCacheObject> getCacheMap() {
-		return CacheUtil.cacheMap;
+		return getInstance().cacheMap;
 	}
 	
 }

@@ -14,6 +14,7 @@ public class HttpUtil {
 	public static String getContent(String url) {
 		String result = "";
 		
+		CacheUtil.getInstance();
 		HttpResponseCacheObject cachedObject = CacheUtil.get(url);
 		if(cachedObject != null) {
 			return cachedObject.getResponseText();
@@ -24,7 +25,7 @@ public class HttpUtil {
         try{
             HttpResponse response = client.execute(request);
             result = HttpHelper.request(response);
-            CacheUtil.getInstance().put(url, new HttpResponseCacheObject(result, new Date()));
+            CacheUtil.put(url, new HttpResponseCacheObject(result, new Date()));
         }catch(Exception ex){
             result = "Failed!";
         }
