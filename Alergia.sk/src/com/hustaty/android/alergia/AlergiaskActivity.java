@@ -1,5 +1,6 @@
 package com.hustaty.android.alergia;
 
+import java.io.IOException;
 import java.util.List;
 
 import android.app.Activity;
@@ -446,21 +447,22 @@ public class AlergiaskActivity extends Activity {
 			XmlUtil xmlUtil = new XmlUtil(content,
 					AlergiaskActivity.currentAlergene.getAlergeneNumber(),
 					AlergiaskActivity.currentCounty.getCountyNumber());
-			List<DistrictStatus> districtStatusList = xmlUtil
-					.getDistrictStatusList();
+			
+			List<DistrictStatus> districtStatusList = xmlUtil.getDistrictStatusList();
+			
 			for (DistrictStatus districtStatus : districtStatusList) {
-				if (AlergiaskActivity.currentAlergene.equals(districtStatus
-						.getAlergene())
-						&& AlergiaskActivity.currentDistrict
-								.equals(districtStatus.getDistrict())) {
+				if (AlergiaskActivity.currentAlergene.equals(districtStatus.getAlergene())
+						&& AlergiaskActivity.currentDistrict.equals(districtStatus.getDistrict())) {
 					return districtStatus;
 				}
 			}
 		} catch (Exception e) {
-			Log.e(LOG_TAG, e.getMessage());
+			Log.e(LOG_TAG, "Very weird exception");
 		}
-		return new DistrictStatus(AlergiaskActivity.currentDistrict,
-				AlergiaskActivity.currentAlergene, Prognosis.UNKNOWN,
+		return new DistrictStatus(
+				AlergiaskActivity.currentDistrict,
+				AlergiaskActivity.currentAlergene, 
+				Prognosis.UNKNOWN,
 				Concentration.UNKNOWN);
 	}
 
