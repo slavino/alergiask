@@ -8,7 +8,6 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -16,28 +15,42 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.hustaty.android.alergia.AlergiaskActivity;
 import com.hustaty.android.alergia.enums.District;
 import com.hustaty.android.alergia.enums.ZIPCode;
 
 public class AlergyLocationService {
 
 	private List<Address> addressList = new ArrayList<Address>();
+	private AlergiaskActivity activity;
 	
-	public AlergyLocationService(final Activity activity) {
+	public AlergyLocationService(final AlergiaskActivity activity) {
 		super();
 
 		// Acquire a reference to the system Location Manager
-		LocationManager locationManager = (LocationManager) activity
-				.getSystemService(Context.LOCATION_SERVICE);
+		LocationManager locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
 
+		this.activity = activity;
+		
+		Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+		Geocoder geocoder = new Geocoder(activity.getApplicationContext());
+		if(location != null) {
+			try {
+				this.addressList = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+				logAddressList(addressList);
+			} catch (IOException e) {
+				Log.e(LOG_TAG, "#getLastKnownLocation(): " + e.getMessage());
+			}
+		}
+		
 		// Define a listener that responds to location updates
 		LocationListener locationListener = new LocationListener() {
 			public void onLocationChanged(Location location) {
 				// Called when a new location is found by the network location
 				// provider.
-				Geocoder geocoder = new Geocoder(
-						activity.getApplicationContext());
+				Geocoder geocoder = new Geocoder(activity.getApplicationContext());
 				
 				try {
 					addressList = geocoder.getFromLocation(
@@ -46,7 +59,6 @@ public class AlergyLocationService {
 				} catch (IOException e) {
 					Log.e(LOG_TAG, e.getMessage());
 				}
-				// makeUseOfNewLocation(location);
 
 			}
 
@@ -67,7 +79,8 @@ public class AlergyLocationService {
 		// Register the listener with the Location Manager to receive location
 		// updates
 		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-//		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+		
+		
 	}
 
 	private void logAddressList(List<Address> addressList) {
@@ -87,7 +100,13 @@ public class AlergyLocationService {
 				Log.d(LOG_TAG,
 						"AddressLine[" + i + "]: " + address.getAddressLine(i));
 			}
-//			Intent i = new Intent();
+			
+			if(!activity.isGotGPSfix()) {
+				Toast toast = Toast.makeText(this.activity.getApplicationContext(), 
+						"Got loaction update: " + address.getSubAdminArea() + ", " + address.getAdminArea() , 
+						Toast.LENGTH_LONG);
+				toast.show();
+			}
 			
 		}
 	}
@@ -99,12 +118,24 @@ public class AlergyLocationService {
 		}
 		
 		Address address = this.addressList.get(0);
+
+		//try to fetch District from ZIPcode
 		ZIPCode zipCode = ZIPCode.getByZIPcode(address.getPostalCode());
-		
 		if(zipCode != null) {
 			return District.getDistrictByDistrictName(zipCode.getDistrict());
 		}
-		
+
+		//try to fetch District from subAdminArea
+		String subAdminArea = address.getSubAdminArea();
+		if(subAdminArea != null) {
+			if(subAdminArea.contains("-")) {
+				subAdminArea = subAdminArea.substring(0, subAdminArea.indexOf("-")).trim();
+			}
+			
+			if(subAdminArea != "") {
+				return District.getDistrictByDistrictName(subAdminArea);
+			}
+		}
 		return null;
 	}
 

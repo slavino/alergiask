@@ -54,6 +54,8 @@ public class AlergiaskActivity extends Activity {
 	
 	private AdView adView;
 
+	private boolean gotGPSfix = false;
+	
 	/** 
 	 * Called when the activity is first created. 
 	 * 
@@ -67,14 +69,15 @@ public class AlergiaskActivity extends Activity {
 
 		AlergyLocationService locationService = new AlergyLocationService(this);
 
-//		District district = locationService.getDistrictFromLastAddress();
+		District district = locationService.getDistrictFromLastAddress();
 
-//		if(district != null) {
-//			currentCounty = district.getCounty();
-//			currentDistrict = district;
-//			currentAlergene = Alergene.OVERALL;
-//			depthLevel = Level.ALERGENE;
-//		}
+		if(district != null && !gotGPSfix) {
+			this.gotGPSfix = true;
+			currentCounty = district.getCounty();
+			currentDistrict = district;
+			currentAlergene = Alergene.OVERALL;
+			depthLevel = Level.ALERGENE;
+		}
 		
 		initUI(null);
 	}
@@ -459,6 +462,10 @@ public class AlergiaskActivity extends Activity {
 		return new DistrictStatus(AlergiaskActivity.currentDistrict,
 				AlergiaskActivity.currentAlergene, Prognosis.UNKNOWN,
 				Concentration.UNKNOWN);
+	}
+
+	public boolean isGotGPSfix() {
+		return gotGPSfix;
 	}
 
 }
