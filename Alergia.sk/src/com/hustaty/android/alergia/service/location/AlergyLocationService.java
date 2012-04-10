@@ -137,6 +137,4 @@ public class AlergyLocationService {
 		return null;
 	}
 
-
-	
 }

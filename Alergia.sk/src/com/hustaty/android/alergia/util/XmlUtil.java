@@ -52,19 +52,14 @@ public class XmlUtil {
 				.replace("> <", "><")
 				.replace("\n", "");
 		
-		
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
 		try {
-
 			DocumentBuilder db = dbf.newDocumentBuilder();
 
 			InputSource is = new InputSource();
 			is.setCharacterStream(new StringReader(xml));
-			doc = db.parse(is);
-
-			
-			
+			doc = db.parse(is);			
 		} catch (ParserConfigurationException e) {
 			Log.e(LOG_TAG, e.getMessage());
 			return null;
@@ -107,8 +102,6 @@ public class XmlUtil {
 				}
 			}
 			
-//			County county = County.getCountyByCountyId(this.countyId);
-
 			for(District district : districtList) {
 				if(district.getX() == x && district.getY() == y) {
 					//TODO
@@ -124,30 +117,6 @@ public class XmlUtil {
 		
 	}
 	
-//	private String getValue(Element item, String str) {
-//		NodeList n = item.getElementsByTagName(str);
-//		return this.getElementValue(n.item(0));
-//	}
-	
-//	private String getAttribute(Element item, String str) {
-//		return (item.getAttribute(str) == null ? "" : item.getAttribute(str));
-//	}
-
-//	private final String getElementValue(Node elem) {
-//		Node child;
-//		if (elem != null) {
-//			if (elem.hasChildNodes()) {
-//				for (child = elem.getFirstChild(); child != null; child = child.getNextSibling()) {
-//					if (child.getNodeType() == Node.TEXT_NODE) {
-//						return child.getNodeValue();
-//					}
-//				}
-//			}
-//		}
-//		return "";
-//	}
-
-
 	public int getCountyId() {
 		return countyId;
 	}
