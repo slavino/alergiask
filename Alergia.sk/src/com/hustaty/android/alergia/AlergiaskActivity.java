@@ -1,6 +1,5 @@
 package com.hustaty.android.alergia;
 
-import java.io.IOException;
 import java.util.List;
 
 import android.app.Activity;
@@ -214,9 +213,13 @@ public class AlergiaskActivity extends Activity {
 				this.alergeneDetailsTextView.getId());
 		layoutParams.topMargin = 5;
 		this.container.addView(this.adView, layoutParams);
-
-		this.adView.loadAd(new AdRequest());
-		// Google AdMob advertisment
+		AdRequest adRequest = new AdRequest();
+		
+		adRequest.addTestDevice("5B68BB4FA54B94EA5FE1EA69B5824A66");
+		adRequest.addTestDevice("30335FA7CB8500EC");
+		
+		this.adView.loadAd(adRequest);
+		// Google AdMob advertisement
 
 	}
 
@@ -437,7 +440,7 @@ public class AlergiaskActivity extends Activity {
 	 * @return districtStatus object of currently slected district and alergene combination
 	 */
 	private DistrictStatus loadData() {
-		String url = "http://alergia.sk/pelove-spravodajstvo/verejnost/xml?xml="
+		String url = "http://www.alergia.sk/pelove-spravodajstvo/verejnost/xml?xml="
 				+ AlergiaskActivity.currentCounty.getCountyNumber()
 				+ "-"
 				+ AlergiaskActivity.currentAlergene.getAlergeneNumber();

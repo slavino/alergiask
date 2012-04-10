@@ -12,7 +12,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -24,7 +23,6 @@ import android.util.Log;
 import com.hustaty.android.alergia.beans.DistrictStatus;
 import com.hustaty.android.alergia.enums.Alergene;
 import com.hustaty.android.alergia.enums.Concentration;
-import com.hustaty.android.alergia.enums.County;
 import com.hustaty.android.alergia.enums.District;
 import com.hustaty.android.alergia.enums.Prognosis;
 
@@ -109,7 +107,7 @@ public class XmlUtil {
 				}
 			}
 			
-			County county = County.getCountyByCountyId(this.countyId);
+//			County county = County.getCountyByCountyId(this.countyId);
 
 			for(District district : districtList) {
 				if(district.getX() == x && district.getY() == y) {
@@ -126,28 +124,28 @@ public class XmlUtil {
 		
 	}
 	
-	private String getValue(Element item, String str) {
-		NodeList n = item.getElementsByTagName(str);
-		return this.getElementValue(n.item(0));
-	}
+//	private String getValue(Element item, String str) {
+//		NodeList n = item.getElementsByTagName(str);
+//		return this.getElementValue(n.item(0));
+//	}
 	
-	private String getAttribute(Element item, String str) {
-		return (item.getAttribute(str) == null ? "" : item.getAttribute(str));
-	}
+//	private String getAttribute(Element item, String str) {
+//		return (item.getAttribute(str) == null ? "" : item.getAttribute(str));
+//	}
 
-	private final String getElementValue(Node elem) {
-		Node child;
-		if (elem != null) {
-			if (elem.hasChildNodes()) {
-				for (child = elem.getFirstChild(); child != null; child = child.getNextSibling()) {
-					if (child.getNodeType() == Node.TEXT_NODE) {
-						return child.getNodeValue();
-					}
-				}
-			}
-		}
-		return "";
-	}
+//	private final String getElementValue(Node elem) {
+//		Node child;
+//		if (elem != null) {
+//			if (elem.hasChildNodes()) {
+//				for (child = elem.getFirstChild(); child != null; child = child.getNextSibling()) {
+//					if (child.getNodeType() == Node.TEXT_NODE) {
+//						return child.getNodeValue();
+//					}
+//				}
+//			}
+//		}
+//		return "";
+//	}
 
 
 	public int getCountyId() {

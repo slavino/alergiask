@@ -47,7 +47,8 @@ public class CacheUtil {
 	
 
 	private Map<String, HttpResponseCacheObject> getCacheMap() {
-		return getInstance().cacheMap;
+		getInstance();
+		return CacheUtil.cacheMap;
 	}
 	
 }
