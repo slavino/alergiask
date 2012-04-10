@@ -152,6 +152,11 @@ public enum District {
 				return district;
 			}
 		}
+		for(District district : District.values()) {
+			if(district.getDistrictName().startsWith(districtName)) {
+				return district;
+			}
+		}
 		return null;
 	}
 	
