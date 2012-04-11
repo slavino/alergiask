@@ -169,7 +169,7 @@ public enum District {
 		String[] accented =    new String[]{"ľ","š","č","ť","ž","ý","á","í","é","ú","ä","ô","ň","ď","ŕ"};
 		String[] replacement = new String[]{"l","s","c","t","z","y","a","i","e","u","a","o","n","d","r"};
 		
-		for(int i = 0 ; i < original.length() ; i++ ) {
+		for(int i = 0 ; i < accented.length ; i++ ) {
 			original = original.replace(accented[i], replacement[i]);
 		}
 		
