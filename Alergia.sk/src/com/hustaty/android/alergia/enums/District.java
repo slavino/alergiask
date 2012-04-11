@@ -147,18 +147,33 @@ public enum District {
 	}
 
 	public static District getDistrictByDistrictName(String districtName) {
+
 		for(District district : District.values()) {
 			if(district.getDistrictName().equals(districtName)) {
 				return district;
 			}
 		}
+
 		for(District district : District.values()) {
-			if(district.getDistrictName().startsWith(districtName)) {
+			if(district.getDistrictName().startsWith(districtName)
+					|| ((replaceSpecialChars(district.getDistrictName())).startsWith(districtName))) {
 				return district;
 			}
 		}
+
 		return null;
+
 	}
 	
-	
+	private static String replaceSpecialChars(String original) {
+		String[] accented =    new String[]{"ľ","š","č","ť","ž","ý","á","í","é","ú","ä","ô","ň","ď","ŕ"};
+		String[] replacement = new String[]{"l","s","c","t","z","y","a","i","e","u","a","o","n","d","r"};
+		
+		for(int i = 0 ; i < original.length() ; i++ ) {
+			original = original.replace(accented[i], replacement[i]);
+		}
+		
+		return original;
+	}
+
 }

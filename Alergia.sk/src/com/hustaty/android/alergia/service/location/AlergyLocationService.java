@@ -125,7 +125,9 @@ public class AlergyLocationService {
 
 		//try to fetch District from subAdminArea
 		String subAdminArea = address.getSubAdminArea();
+		
 		if(subAdminArea != null) {
+			
 			if(subAdminArea.contains("-")) {
 				subAdminArea = subAdminArea.substring(0, subAdminArea.indexOf("-")).trim();
 			}
@@ -133,8 +135,9 @@ public class AlergyLocationService {
 			if(subAdminArea != "") {
 				return District.getDistrictByDistrictName(subAdminArea);
 			}
+			
 		}
 		return null;
 	}
-
+	
 }
