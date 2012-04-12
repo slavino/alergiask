@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/share"
+          android:title="@string/menushare"
+          android:icon="@android:drawable/ic_menu_share"
+          android:showAsAction="ifRoom|withText"/>
+
+    <item android:id="@+id/senderror"
+          android:title="@string/menusenderror"
+          android:icon="@android:drawable/ic_menu_send"
+          android:showAsAction="ifRoom|withText" />
+    
+    <item android:id="@+id/close"
+          android:title="@string/menuclose"
+          android:icon="@android:drawable/ic_menu_close_clear_cancel"
+          android:showAsAction="ifRoom|withText" />
+</menu>
