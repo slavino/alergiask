@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.hustaty.android.alergia.AlergiaskActivity;
 import com.hustaty.android.alergia.enums.District;
 import com.hustaty.android.alergia.enums.ZIPCode;
+import com.hustaty.android.alergia.util.LogUtil;
 
 public class AlergyLocationService {
 
@@ -82,23 +83,26 @@ public class AlergyLocationService {
 	}
 
 	private void logAddressList(List<Address> addressList) {
+
+		StringBuilder logEntry = new StringBuilder(); 
+		
 		for (Address address : addressList) {
-			Log.d(LOG_TAG, "### Iterating over address ###");
-			String countryName = address.getCountryName();
-			String countryCode = address.getCountryCode();
-			Log.d(LOG_TAG, "countryName: " + countryName);
-			Log.d(LOG_TAG, "countryCode: " + countryCode);
-			Log.d(LOG_TAG, "AdminArea: " + address.getAdminArea());
-			Log.d(LOG_TAG, "FeatureName: " + address.getFeatureName());
-			Log.d(LOG_TAG, "PostalCode: " + address.getPostalCode());
-			Log.d(LOG_TAG, "SubAdminArea: " + address.getSubAdminArea());
-			Log.d(LOG_TAG, "Thoroughfare: " + address.getThoroughfare());
-			Log.d(LOG_TAG, "Extras: " + address.getExtras());
+			logEntry.append("### Iterating over address ###\n");
+			logEntry.append("countryName: " + address.getCountryName() + "\n");
+			logEntry.append("countryCode: " + address.getCountryCode() + "\n");
+			logEntry.append("AdminArea: " + address.getAdminArea() + "\n");
+			logEntry.append("FeatureName: " + address.getFeatureName() + "\n");
+			logEntry.append("PostalCode: " + address.getPostalCode() + "\n");
+			logEntry.append("SubAdminArea: " + address.getSubAdminArea() + "\n");
+			logEntry.append("Thoroughfare: " + address.getThoroughfare() + "\n");
+			logEntry.append("Extras: " + address.getExtras() + "\n");
 			for (int i = 0; i < address.getMaxAddressLineIndex(); i++) {
-				Log.d(LOG_TAG,
-						"AddressLine[" + i + "]: " + address.getAddressLine(i));
+				logEntry.append("AddressLine[" + i + "]: " + address.getAddressLine(i) + "\n");
 			}
+			Log.d(LOG_TAG, logEntry.toString());
+			LogUtil.appendLog(logEntry.toString());
 			
+			//user notification that application has discovered his location
 			if(!activity.isGotGPSfix()) {
 				Toast toast = Toast.makeText(this.activity.getApplicationContext(), 
 						"Got your location:\n" + address.getSubAdminArea() + ", " + address.getAdminArea() , 

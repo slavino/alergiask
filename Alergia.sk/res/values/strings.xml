@@ -9,5 +9,5 @@
     
     <string name="menuclose">Close</string>
     <string name="menushare">Share</string>
-    
+    <string name="menusenderror">Send error report</string>
 </resources>
