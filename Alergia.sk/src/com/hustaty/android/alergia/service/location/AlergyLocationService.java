@@ -52,6 +52,11 @@ public class AlergyLocationService {
 				if(!activity.isGotGPSfix()) {
 					// Called when a new location is found by the network location
 					// provider.
+					LogUtil.appendLog("#AlergyLocationService.LocationListener.onLocationChanged(): Will try to resolve GPS to Address: LAT:" 
+										+ location.getLatitude() 
+										+ ", LON:" + location.getLongitude()
+										+ ", PROVIDER: " + location.getProvider());
+					
 					Geocoder geocoder = new Geocoder(activity.getApplicationContext());
 					
 					try {
@@ -67,14 +72,17 @@ public class AlergyLocationService {
 			public void onStatusChanged(String provider, int status,
 					Bundle extras) {
 				Log.i(LOG_TAG, "#onStatusChanged(): Provider enabled: " + provider);
+				LogUtil.appendLog("#AlergyLocationService.LocationListener.onStatusChanged(): " + provider + ", status: " + status);
 			}
 
 			public void onProviderEnabled(String provider) {
 				Log.i(LOG_TAG, "#onProviderEnabled(): Provider enabled: " + provider);
+				LogUtil.appendLog("#AlergyLocationService.LocationListener.onProviderEnabled(): " + provider);
 			}
 
 			public void onProviderDisabled(String provider) {
 				Log.i(LOG_TAG, "#onProviderDisabled(): Provider disabled " + provider);
+				LogUtil.appendLog("#AlergyLocationService.LocationListener.onProviderDisabled(): " + provider);
 			}
 		};
 

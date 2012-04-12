@@ -22,7 +22,12 @@ public class HttpHelper {
 			in.close();
 			result = str.toString();
 		} catch (Exception ex) {
-			result = "Error";
+			if(ex != null) {
+				LogUtil.appendLog("#HttpHelper.request(): " + ex.getMessage());
+			} else {
+				LogUtil.appendLog("#HttpHelper.request(): Problem occured.");
+			}
+			result = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><xml/>";
 		}
 		return result;
 	}

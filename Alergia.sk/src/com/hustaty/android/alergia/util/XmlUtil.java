@@ -51,6 +51,8 @@ public class XmlUtil {
 				.replace("smile", "")
 				.replace("> <", "><")
 				.replace("\n", "");
+
+		LogUtil.appendLog("#XmlUtil.getDomElement(): from " + xml);
 		
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
@@ -62,12 +64,15 @@ public class XmlUtil {
 			doc = db.parse(is);			
 		} catch (ParserConfigurationException e) {
 			Log.e(LOG_TAG, e.getMessage());
+			LogUtil.appendLog("#XmlUtil.getDomElement(): ERROR " + e.getMessage());
 			return null;
 		} catch (SAXException e) {
 			Log.e(LOG_TAG, e.getMessage());
+			LogUtil.appendLog("#XmlUtil.getDomElement(): ERROR " + e.getMessage());
 			return null;
 		} catch (IOException e) {
 			Log.e(LOG_TAG, e.getMessage());
+			LogUtil.appendLog("#XmlUtil.getDomElement(): ERROR " + e.getMessage());
 			return null;
 		}
 		return doc;
@@ -105,10 +110,14 @@ public class XmlUtil {
 			for(District district : districtList) {
 				if(district.getX() == x && district.getY() == y) {
 					//TODO
-					districtStatusList.add(new DistrictStatus(district,
+					DistrictStatus districtStatus = new DistrictStatus(district,
 							Alergene.getAlergeneById(alergeneId),
 							Prognosis.getPrognosisByDescription(prognosisString), 
-							Concentration.getConcentrationByOrderNumber(Integer.parseInt(concentrationString))));
+							Concentration.getConcentrationByOrderNumber(Integer.parseInt(concentrationString)));
+					
+					LogUtil.appendLog("#XmlUtil.processDocument(): adding DistrictStatus to resultList - " + districtStatus.toHumanReadableString());
+					
+					districtStatusList.add(districtStatus);
 				}
 			}
 		}

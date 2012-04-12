@@ -1,5 +1,7 @@
 package com.hustaty.android.alergia.enums;
 
+import com.hustaty.android.alergia.util.LogUtil;
+
 public enum ZIPCode {
 
 	PSC01001(District.ZA, /* Celulózka", */ "01001"),
@@ -1539,6 +1541,7 @@ public enum ZIPCode {
 	PSC01007(District.ZA, "01007");
 	
 	private District district;
+	
 	private String psc;
 	
 	private ZIPCode(District district, String psc) {
@@ -1549,6 +1552,7 @@ public enum ZIPCode {
 	public static ZIPCode getByZIPcode(String zip) {
 		for(ZIPCode zipCode : ZIPCode.values()) {
 			if((zipCode.psc !=  "") && (zipCode.psc.equals(zip))) {
+				LogUtil.appendLog("#ZIPCode.getByZIPcode(): " + zip + " was identified as belonging to district - " + zipCode.getDistrict().getDistrictName());
 				return zipCode;
 			}
 		}

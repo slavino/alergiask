@@ -133,8 +133,9 @@ public class AlergiaskActivity extends Activity {
                         publishProgress(counter*25);  
                     }  
                 }  
-            } catch (InterruptedException e) {  
-                e.printStackTrace();  
+            } catch (InterruptedException e) {
+            	LogUtil.appendLog("#AlergiaskActivity.LoadViewTask.doInBackground(): " + e.getMessage());
+                Log.e(LOG_TAG, e.getMessage());  
             }  
             return null;  
         }  
@@ -384,6 +385,7 @@ public class AlergiaskActivity extends Activity {
 	 */
 	@Override
 	public void onBackPressed() {
+		LogUtil.appendLog("#AlergiaskActivity.onBackPressed(): ### EXITING APPLICATION ###");
 		super.onBackPressed();
 		finish();
 		System.runFinalizersOnExit(true);
@@ -396,7 +398,6 @@ public class AlergiaskActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.menu, menu);
-//	    return true;
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -574,7 +575,7 @@ public class AlergiaskActivity extends Activity {
 				Prognosis.UNKNOWN,
 				Concentration.UNKNOWN);
 		
-		LogUtil.appendLog("#loadData(): " + districtStatus.toHumanReadableString());
+		LogUtil.appendLog("#loadData(): DistrictStatus is - " + districtStatus.toHumanReadableString());
 		
 		return districtStatus;
 	}
@@ -604,7 +605,9 @@ public class AlergiaskActivity extends Activity {
 		sendIntent.setType("text/plain");
 		startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.share)));
 	}
-	
+	/**
+	 * Send Error report and truncate the log file.
+	 */
 	private void sendErrorReport() {
 		String logContent = LogUtil.readLog();
 		Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
