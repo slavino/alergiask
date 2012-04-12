@@ -166,8 +166,14 @@ public enum District {
 	}
 	
 	private static String replaceSpecialChars(String original) {
-		String[] accented =    new String[]{"ľ","š","č","ť","ž","ý","á","í","é","ú","ä","ô","ň","ď","ŕ"};
-		String[] replacement = new String[]{"l","s","c","t","z","y","a","i","e","u","a","o","n","d","r"};
+		String[] accented =    new String[]{
+				"ľ","š","č","ť","ž","ý","á","í","é","ú","ä","ô","ň","ď","ŕ",
+				"Ľ","Š","Č","Ť","Ž","Ý","Á","Í","É","Ú",        "Ň","Ď","Ŕ"
+				};
+		String[] replacement = new String[]{
+				"l","s","c","t","z","y","a","i","e","u","a","o","n","d","r",
+				"L","S","C","T","Z","Y","A","I","E","U",        "N","D","R"
+				};
 		
 		for(int i = 0 ; i < accented.length ; i++ ) {
 			original = original.replace(accented[i], replacement[i]);
