@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -614,5 +613,6 @@ public class AlergiaskActivity extends Activity {
 		emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Alergia.sk - error report");
 		emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, logContent);
 		this.startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+		LogUtil.clearLog();
 	}
 }

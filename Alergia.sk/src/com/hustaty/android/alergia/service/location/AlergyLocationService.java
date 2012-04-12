@@ -49,17 +49,19 @@ public class AlergyLocationService {
 		// Define a listener that responds to location updates
 		LocationListener locationListener = new LocationListener() {
 			public void onLocationChanged(Location location) {
-				// Called when a new location is found by the network location
-				// provider.
-				Geocoder geocoder = new Geocoder(activity.getApplicationContext());
-				
-				try {
-					addressList = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-					logAddressList(addressList);
-				} catch (IOException e) {
-					Log.e(LOG_TAG, e.getMessage());
+				if(!activity.isGotGPSfix()) {
+					// Called when a new location is found by the network location
+					// provider.
+					Geocoder geocoder = new Geocoder(activity.getApplicationContext());
+					
+					try {
+						addressList = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+						logAddressList(addressList);
+					} catch (IOException e) {
+						LogUtil.appendLog("#AlergyLocationService.LocationListener.onLocationChanged(): " + e.getMessage());
+						Log.e(LOG_TAG, e.getMessage());
+					}
 				}
-
 			}
 
 			public void onStatusChanged(String provider, int status,
@@ -78,7 +80,7 @@ public class AlergyLocationService {
 
 		// Register the listener with the Location Manager to receive location
 		// updates
-		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 1000, locationListener);
 		
 	}
 
