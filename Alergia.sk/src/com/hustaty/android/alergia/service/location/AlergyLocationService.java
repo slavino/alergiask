@@ -24,6 +24,7 @@ import com.hustaty.android.alergia.util.LogUtil;
 public class AlergyLocationService {
 
 	private List<Address> addressList = new ArrayList<Address>();
+	
 	private AlergiaskActivity activity;
 	
 	public AlergyLocationService(final AlergiaskActivity activity) {
@@ -53,8 +54,7 @@ public class AlergyLocationService {
 				Geocoder geocoder = new Geocoder(activity.getApplicationContext());
 				
 				try {
-					addressList = geocoder.getFromLocation(
-							location.getLatitude(), location.getLongitude(), 1);
+					addressList = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
 					logAddressList(addressList);
 				} catch (IOException e) {
 					Log.e(LOG_TAG, e.getMessage());
@@ -116,6 +116,7 @@ public class AlergyLocationService {
 	public District getDistrictFromLastAddress() {
 		
 		if(this.addressList.size() == 0) {
+			LogUtil.appendLog("AlergyLocationService.getDistrictFromLastAddress(): got empty addressList - return NULL");
 			return null;
 		}
 		
@@ -124,6 +125,7 @@ public class AlergyLocationService {
 		//try to fetch District from ZIPcode
 		ZIPCode zipCode = ZIPCode.getByZIPcode(address.getPostalCode());
 		if(zipCode != null) {
+			LogUtil.appendLog("AlergyLocationService.getDistrictFromLastAddress(): got from ZIP code - " + zipCode.getDistrict().getDistrictName());
 			return zipCode.getDistrict();
 		}
 
@@ -137,10 +139,14 @@ public class AlergyLocationService {
 			}
 			
 			if(subAdminArea != "") {
-				return District.getDistrictByDistrictName(subAdminArea);
+				District district = District.getDistrictByDistrictName(subAdminArea); 
+				LogUtil.appendLog("AlergyLocationService.getDistrictFromLastAddress(): got from subAdminArea '" + subAdminArea + "' - " + district.getDistrictName());
+				return district;
 			}
 			
 		}
+		
+		LogUtil.appendLog("AlergyLocationService.getDistrictFromLastAddress(): got NOT empty addressList BUT couldn't fetch District from " + subAdminArea + " - return NULL");
 		return null;
 	}
 	

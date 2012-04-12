@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -32,6 +33,7 @@ import com.hustaty.android.alergia.enums.Level;
 import com.hustaty.android.alergia.enums.Prognosis;
 import com.hustaty.android.alergia.service.location.AlergyLocationService;
 import com.hustaty.android.alergia.util.HttpUtil;
+import com.hustaty.android.alergia.util.LogUtil;
 import com.hustaty.android.alergia.util.XmlUtil;
 
 public class AlergiaskActivity extends Activity {
@@ -401,7 +403,6 @@ public class AlergiaskActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
 		switch(item.getItemId()) {
 			case R.id.close:
 				finish();
@@ -410,6 +411,9 @@ public class AlergiaskActivity extends Activity {
 				break;
 			case R.id.share:
 				share();
+				break;
+			case R.id.senderror:
+				sendErrorReport();
 				break;
 		}
 		return super.onOptionsItemSelected(item);
@@ -444,8 +448,7 @@ public class AlergiaskActivity extends Activity {
 					} else if (direction == Direction.LEFT) {
 						int index = (c + 1 >= counties.size() ? 0 : c + 1);
 						this.countyNameTextView.setText(counties.get(index));
-						AlergiaskActivity.currentCounty = County
-								.getCountyByCountyName(counties.get(index));
+						AlergiaskActivity.currentCounty = County.getCountyByCountyName(counties.get(index));
 						break;
 					} else if (direction == Direction.UP) {
 						this.depthLevel = Level.DISTRICT;
@@ -557,17 +560,24 @@ public class AlergiaskActivity extends Activity {
 			for (DistrictStatus districtStatus : districtStatusList) {
 				if (AlergiaskActivity.currentAlergene.equals(districtStatus.getAlergene())
 						&& AlergiaskActivity.currentDistrict.equals(districtStatus.getDistrict())) {
+					LogUtil.appendLog("#loadData(): " + districtStatus.toHumanReadableString());
 					return districtStatus;
 				}
 			}
 		} catch (Exception e) {
 			Log.e(LOG_TAG, "Very weird exception");
+			LogUtil.appendLog("Very weird Exception");
 		}
-		return new DistrictStatus(
+		
+		DistrictStatus districtStatus = new DistrictStatus(
 				AlergiaskActivity.currentDistrict,
 				AlergiaskActivity.currentAlergene, 
 				Prognosis.UNKNOWN,
 				Concentration.UNKNOWN);
+		
+		LogUtil.appendLog("#loadData(): " + districtStatus.toHumanReadableString());
+		
+		return districtStatus;
 	}
 
 	/**
@@ -596,4 +606,13 @@ public class AlergiaskActivity extends Activity {
 		startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.share)));
 	}
 	
+	private void sendErrorReport() {
+		String logContent = LogUtil.readLog();
+		Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+		emailIntent.setType("plain/text");
+		emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{ "slavomir.hustaty@gmail.com" });
+		emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Alergia.sk - error report");
+		emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, logContent);
+		this.startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+	}
 }
