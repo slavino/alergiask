@@ -115,7 +115,7 @@ public class XmlUtil {
 							Prognosis.getPrognosisByDescription(prognosisString), 
 							Concentration.getConcentrationByOrderNumber(Integer.parseInt(concentrationString)));
 					
-					LogUtil.appendLog("#XmlUtil.processDocument(): adding DistrictStatus to resultList - " + districtStatus.toHumanReadableString());
+					LogUtil.appendLog("#XmlUtil.processDocument(): adding DistrictStatus to resultList - " + districtStatus.toString());
 					
 					districtStatusList.add(districtStatus);
 				}

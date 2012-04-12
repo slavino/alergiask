@@ -75,16 +75,11 @@ public class AlergiaskActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		setContentView(R.layout.main);
-	
+
+		LogUtil.appendLog("#AlergiaskActivity.onCreate(): ### STARTING APPLICATION ###");
 		//Initialize a LoadViewTask object and call the execute() method  
         new LoadViewTask().execute();         
-  
-		
-
-//		this.container = (RelativeLayout) findViewById(R.id.container);
-//		initUI(null);
-	}
+  	}
 
 	
 	//////////////////////////////////////////////////////////////////////////////////////////
@@ -125,7 +120,7 @@ public class AlergiaskActivity extends Activity {
                     //While the counter is smaller than four  
                     while(counter <= 4) {  
                         //Wait 850 milliseconds  
-                        this.wait(850);  
+                        this.wait(500);  
                         //Increment the counter  
                         counter++;  
                         //Set the current progress.  
@@ -560,13 +555,13 @@ public class AlergiaskActivity extends Activity {
 			for (DistrictStatus districtStatus : districtStatusList) {
 				if (AlergiaskActivity.currentAlergene.equals(districtStatus.getAlergene())
 						&& AlergiaskActivity.currentDistrict.equals(districtStatus.getDistrict())) {
-					LogUtil.appendLog("#loadData(): " + districtStatus.toHumanReadableString());
+					LogUtil.appendLog("#AlergiaskActivity.loadData(): " + districtStatus.toString());
 					return districtStatus;
 				}
 			}
 		} catch (Exception e) {
 			Log.e(LOG_TAG, "Very weird exception");
-			LogUtil.appendLog("Very weird Exception");
+			LogUtil.appendLog("Very weird Exception with URL: '" + url + "'");
 		}
 		
 		DistrictStatus districtStatus = new DistrictStatus(
@@ -575,7 +570,7 @@ public class AlergiaskActivity extends Activity {
 				Prognosis.UNKNOWN,
 				Concentration.UNKNOWN);
 		
-		LogUtil.appendLog("#loadData(): DistrictStatus is - " + districtStatus.toHumanReadableString());
+		LogUtil.appendLog("#AlergiaskActivity.loadData(): " + districtStatus.toString());
 		
 		return districtStatus;
 	}
