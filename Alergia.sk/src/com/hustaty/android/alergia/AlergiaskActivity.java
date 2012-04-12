@@ -400,14 +400,17 @@ public class AlergiaskActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch(item.getItemId()) {
 			case R.id.close:
+				LogUtil.appendLog("#AlergiaskActivity.onOptionsItemSelected(): ### EXITING APPLICATION ###");
 				finish();
 				System.runFinalizersOnExit(true);
 				System.exit(0);
 				break;
 			case R.id.share:
+				LogUtil.appendLog("#AlergiaskActivity.onOptionsItemSelected(): Sharing info.");
 				share();
 				break;
 			case R.id.senderror:
+				LogUtil.appendLog("#AlergiaskActivity.onOptionsItemSelected(): Sending error log to developer.");
 				sendErrorReport();
 				break;
 		}
