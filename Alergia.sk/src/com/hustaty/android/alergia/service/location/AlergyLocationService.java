@@ -124,7 +124,7 @@ public class AlergyLocationService {
 		//try to fetch District from ZIPcode
 		ZIPCode zipCode = ZIPCode.getByZIPcode(address.getPostalCode());
 		if(zipCode != null) {
-			return District.getDistrictByDistrictName(zipCode.getDistrict());
+			return zipCode.getDistrict();
 		}
 
 		//try to fetch District from subAdminArea
