@@ -1,14 +1,19 @@
 package com.hustaty.android.alergia;
 
+import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
@@ -385,6 +390,31 @@ public class AlergiaskActivity extends Activity {
 	}
 
 	
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.menu, menu);
+//	    return true;
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		switch(item.getItemId()) {
+			case R.id.close:
+				finish();
+				System.runFinalizersOnExit(true);
+				System.exit(0);
+				break;
+			case R.id.share:
+				share();
+				break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
 	/**
 	 * UI modifications.
 	 * @param direction LEFT, RIGHT, UP, DOWN
@@ -493,8 +523,8 @@ public class AlergiaskActivity extends Activity {
 				depthLevel = Level.ALERGENE;
 				this.alergeneDetailsTextView.setText("Loading...");
 				DistrictStatus data = loadData();
-				this.alergeneDetailsTextView.setText(data
-						.toHumanReadableString());
+				this.alergeneDetailsTextView.setText(data.toHumanReadableString());
+//				share();
 			} else if (direction == Direction.DOWN) {
 				// TODO
 				this.depthLevel = Level.DISTRICT;
@@ -540,8 +570,30 @@ public class AlergiaskActivity extends Activity {
 				Concentration.UNKNOWN);
 	}
 
+	/**
+	 * Single GPS fix enabled only.
+	 * @return whether the app already got loaction fix
+	 */
 	public boolean isGotGPSfix() {
 		return gotGPSfix;
 	}
 
+	/**
+	 * Use share option provided by Android.
+	 */
+	private void share() {
+		StringBuilder message = new StringBuilder(getResources().getText(R.string.app_name) + "\n\n");
+		message.append(getResources().getText(R.string.county) + ": " + currentCounty.getCountyName() + "\n");
+		message.append(getResources().getText(R.string.district) + ": " + currentDistrict.getDistrictName() + "\n");
+		message.append(getResources().getText(R.string.allergene) + ": " + currentAlergene.getAlergeneName() + "\n");
+		message.append(this.alergeneDetailsTextView.getText() + "\n");
+		message.append("\n--\n" + (new Date()) + "\n\nSent from my Android phone...");
+		
+		Intent sendIntent = new Intent();
+		sendIntent.setAction(Intent.ACTION_SEND);
+		sendIntent.putExtra(Intent.EXTRA_TEXT, message.toString());
+		sendIntent.setType("text/plain");
+		startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.share)));
+	}
+	
 }

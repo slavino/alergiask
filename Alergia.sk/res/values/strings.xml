@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello"></string>
+    <string name="share">Share this info...</string>
     <string name="app_name">Alergia.sk</string>
-
+    <string name="district">District</string>
+    <string name="county">County</string>
+    <string name="allergene">Allergene</string>
+    
+    <string name="menuclose">Close</string>
+    <string name="menushare">Share</string>
+    
 </resources>
