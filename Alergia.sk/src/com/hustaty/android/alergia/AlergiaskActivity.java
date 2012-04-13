@@ -107,11 +107,12 @@ public class AlergiaskActivity extends Activity {
         //The code to be executed in a background thread.  
         @Override  
         protected Void doInBackground(Void... params) {  
-            /* This is just a code that delays the thread execution 4 times, 
-             * during 850 milliseconds and updates the current progress. This 
-             * is where the code that is going to be executed on a background 
-             * thread must be placed. 
-             */  
+			/**
+			 * This is just a code that delays the thread execution 4 times,
+			 * during 500 milliseconds and updates the current progress. This is
+			 * where the code that is going to be executed on a background
+			 * thread must be placed.
+			 */
             try {  
                 //Get the current thread's token  
                 synchronized (this) {  
@@ -161,10 +162,8 @@ public class AlergiaskActivity extends Activity {
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
-
 		setContentView(R.layout.main);
 		this.container = (RelativeLayout) findViewById(R.id.container);
-
 		initUI(newConfig);
 	}
 
@@ -380,11 +379,8 @@ public class AlergiaskActivity extends Activity {
 	 */
 	@Override
 	public void onBackPressed() {
-		LogUtil.appendLog("#AlergiaskActivity.onBackPressed(): ### EXITING APPLICATION ###");
 		super.onBackPressed();
-		finish();
-		System.runFinalizersOnExit(true);
-		System.exit(0);
+		exit();
 	}
 
 	
@@ -400,10 +396,7 @@ public class AlergiaskActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch(item.getItemId()) {
 			case R.id.close:
-				LogUtil.appendLog("#AlergiaskActivity.onOptionsItemSelected(): ### EXITING APPLICATION ###");
-				finish();
-				System.runFinalizersOnExit(true);
-				System.exit(0);
+				exit();
 				break;
 			case R.id.share:
 				LogUtil.appendLog("#AlergiaskActivity.onOptionsItemSelected(): Sharing info.");
@@ -595,7 +588,7 @@ public class AlergiaskActivity extends Activity {
 		message.append(getResources().getText(R.string.district) + ": " + currentDistrict.getDistrictName() + "\n");
 		message.append(getResources().getText(R.string.allergene) + ": " + currentAlergene.getAlergeneName() + "\n");
 		message.append(this.alergeneDetailsTextView.getText() + "\n");
-		message.append("\n--\n" + (new Date()) + "\n\nSent from my Android phone...");
+		message.append("\n--\n" + (new Date()) + "\nhttps://groups.google.com/d/forum/alergiask-discuss\n\nSent from my Android phone...");
 		
 		Intent sendIntent = new Intent();
 		sendIntent.setAction(Intent.ACTION_SEND);
@@ -615,5 +608,15 @@ public class AlergiaskActivity extends Activity {
 		emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, logContent);
 		this.startActivity(Intent.createChooser(emailIntent, "Send mail..."));
 		LogUtil.clearLog();
+	}
+	
+	/**
+	 * Exit application.
+	 */
+	private void exit() {
+		LogUtil.appendLog("#AlergiaskActivity.exit(): ### EXITING APPLICATION ###");
+		finish();
+		System.runFinalizersOnExit(true);
+		System.exit(0);
 	}
 }

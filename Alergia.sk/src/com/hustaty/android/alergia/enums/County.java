@@ -1,6 +1,7 @@
 package com.hustaty.android.alergia.enums;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public enum County {
@@ -51,6 +52,10 @@ public enum County {
 		result.add(TN.getCountyName());
 		result.add(ZA.getCountyName());
 		return result;
+	}
+	
+	public static List<County> getAllCounties() {
+		return Arrays.asList(County.values());
 	}
 	
 	public static County getCountyByCountyName(String countyName) {

@@ -25,6 +25,8 @@ public class AlergyLocationService {
 
 	private List<Address> addressList = new ArrayList<Address>();
 	
+	private Location myLocation;
+	
 	private AlergiaskActivity activity;
 	
 	public AlergyLocationService(final AlergiaskActivity activity) {
@@ -35,11 +37,11 @@ public class AlergyLocationService {
 
 		this.activity = activity;
 		
-		Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+		this.myLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 		Geocoder geocoder = new Geocoder(activity.getApplicationContext());
-		if(location != null) {
+		if(this.myLocation != null) {
 			try {
-				this.addressList = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+				this.addressList = geocoder.getFromLocation(this.myLocation.getLatitude(), this.myLocation.getLongitude(), 1);
 				logAddressList(addressList);
 			} catch (IOException e) {
 				Log.e(LOG_TAG, "#getLastKnownLocation(): " + e.getMessage());
@@ -126,6 +128,9 @@ public class AlergyLocationService {
 	public District getDistrictFromLastAddress() {
 		
 		if(this.addressList.size() == 0) {
+			if(this.myLocation != null) {
+				return getNearestDistrict(this.myLocation);
+			}
 			LogUtil.appendLog("AlergyLocationService.getDistrictFromLastAddress(): got empty addressList - return NULL");
 			return null;
 		}
@@ -158,6 +163,25 @@ public class AlergyLocationService {
 		
 		LogUtil.appendLog("AlergyLocationService.getDistrictFromLastAddress(): got NOT empty addressList BUT couldn't fetch District from " + subAdminArea + " - return NULL");
 		return null;
+	}
+
+	
+	private District getNearestDistrict(Location myLocation) {
+		double minValue = Double.POSITIVE_INFINITY;
+		District nearestDistrict = null;
+		for(District district : District.getAllDistricts()) {
+			if(distance(myLocation.getLatitude(), myLocation.getLongitude(), district.getLatitude(), district.getLongitude()) < minValue) {
+				nearestDistrict = district;
+			}
+		}
+		
+		LogUtil.appendLog("AlergyLocationService.getNearestDistrict(): got Location LAT:" + myLocation.getLatitude() + ", LON:" + myLocation.getLatitude() + " - returning District " + nearestDistrict.getDistrictName());
+
+		return nearestDistrict;
+	}
+	
+	private double distance(double x0, double y0, double x1, double y1) {
+		return Math.sqrt(Math.pow(Math.abs(y0-y1),2) + Math.pow(Math.abs(x0-x1), 2));
 	}
 	
 }
