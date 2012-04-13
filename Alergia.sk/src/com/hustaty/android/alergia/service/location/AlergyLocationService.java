@@ -175,7 +175,7 @@ public class AlergyLocationService {
 			}
 		}
 		
-		LogUtil.appendLog("AlergyLocationService.getNearestDistrict(): got Location LAT:" + myLocation.getLatitude() + ", LON:" + myLocation.getLatitude() + ", " +myLocation.toString() +  " - returning District " + nearestDistrict.getDistrictName());
+		LogUtil.appendLog("AlergyLocationService.getNearestDistrict(): got Location LAT:" + myLocation.getLatitude() + ", LON:" + myLocation.getLongitude() + ", " + myLocation.toString() +  " - returning District " + nearestDistrict.getDistrictName());
 
 		return nearestDistrict;
 	}
