@@ -173,7 +173,9 @@ public class AlergyLocationService {
 		double minValue = Double.POSITIVE_INFINITY;
 		District nearestDistrict = null;
 		for(District district : District.getAllDistricts()) {
-			if(distance(myLocation.getLatitude(), myLocation.getLongitude(), district.getLatitude(), district.getLongitude()) < minValue) {
+			double value = distance(myLocation.getLatitude(), myLocation.getLongitude(), district.getLatitude(), district.getLongitude()); 
+			if(value < minValue) {
+				minValue = value;
 				nearestDistrict = district;
 			}
 		}
