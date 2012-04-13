@@ -155,7 +155,10 @@ public class AlergyLocationService {
 			
 			if(subAdminArea != "") {
 				District district = District.getDistrictByDistrictName(subAdminArea); 
-				LogUtil.appendLog("AlergyLocationService.getDistrictFromLastAddress(): got from subAdminArea '" + subAdminArea + "' - " + district.getDistrictName());
+				LogUtil.appendLog("AlergyLocationService.getDistrictFromLastAddress(): got from subAdminArea '" + subAdminArea + "' - " + district);
+				if(district == null) {
+					district = getNearestDistrict(this.myLocation);
+				}
 				return district;
 			}
 			
