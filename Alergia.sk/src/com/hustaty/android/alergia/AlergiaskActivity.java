@@ -289,7 +289,7 @@ public class AlergiaskActivity extends Activity {
 		
 		adRequest.addTestDevice("5B68BB4FA54B94EA5FE1EA69B5824A66");
 		adRequest.addTestDevice("30335FA7CB8500EC");
-		
+		adRequest.addTestDevice("4EE33D8E7538E6E96000E63FB6E62910");
 		this.adView.loadAd(adRequest);
 		// Google AdMob advertisement
 

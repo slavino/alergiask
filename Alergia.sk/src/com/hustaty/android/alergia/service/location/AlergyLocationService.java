@@ -127,7 +127,7 @@ public class AlergyLocationService {
 
 	public District getDistrictFromLastAddress() {
 		
-		if(this.addressList.size() == 0) {
+		if(this.addressList == null || this.addressList.size() == 0) {
 			if(this.myLocation != null) {
 				return getNearestDistrict(this.myLocation);
 			}
