@@ -25,6 +25,7 @@ public class HttpHelper {
 			if(ex != null) {
 				LogUtil.appendLog("#HttpHelper.request(): " + ex.getMessage());
 			} else {
+				//unfortunately this is not dead code...no idea how is this possible but I get quite often NULL EXCEPTION!!!
 				LogUtil.appendLog("#HttpHelper.request(): Problem occured.");
 			}
 			result = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><xml/>";
