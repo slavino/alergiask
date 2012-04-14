@@ -1550,10 +1550,13 @@ public enum ZIPCode {
 	}
 	
 	public static ZIPCode getByZIPcode(String zip) {
-		for(ZIPCode zipCode : ZIPCode.values()) {
-			if((zipCode.psc !=  "") && (zipCode.psc.equals(zip))) {
-				LogUtil.appendLog("#ZIPCode.getByZIPcode(): " + zip + " was identified as belonging to district - " + zipCode.getDistrict().getDistrictName());
-				return zipCode;
+		LogUtil.appendLog("#ZIPCode.getByZIPcode(): Will try to identify ZIP " + zip);
+		if((zip != null) && (zip != "")) {
+			for(ZIPCode zipCode : ZIPCode.values()) {
+				if((zipCode.psc !=  "") && (zipCode.psc.equals(zip))) {
+					LogUtil.appendLog("#ZIPCode.getByZIPcode(): " + zip + " was identified as belonging to district - " + zipCode.getDistrict().getDistrictName());
+					return zipCode;
+				}
 			}
 		}
 		return null;

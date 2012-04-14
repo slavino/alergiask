@@ -5,6 +5,8 @@ import static com.hustaty.android.alergia.AlergiaskActivity.LOG_TAG;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.content.Context;
 import android.location.Address;
@@ -138,12 +140,30 @@ public class AlergyLocationService {
 		Address address = this.addressList.get(0);
 
 		//try to fetch District from ZIPcode
-		ZIPCode zipCode = ZIPCode.getByZIPcode(address.getPostalCode());
-		if(zipCode != null) {
-			LogUtil.appendLog("AlergyLocationService.getDistrictFromLastAddress(): got from ZIP code - " + zipCode.getDistrict().getDistrictName());
-			return zipCode.getDistrict();
+		if(address.getPostalCode() != null) {
+			ZIPCode zipCode = ZIPCode.getByZIPcode(address.getPostalCode());
+			if(zipCode != null) {
+				LogUtil.appendLog("AlergyLocationService.getDistrictFromLastAddress(): got from ZIP code - " + zipCode.getDistrict().getDistrictName());
+				return zipCode.getDistrict();
+			}
+		} else if((address.getMaxAddressLineIndex() > 0)
+				&& (address.getAddressLine(address.getMaxAddressLineIndex()-1) != null)) {
+			Pattern p = Pattern.compile("[0-9]{5}");
+			Matcher m = p.matcher(address.getAddressLine(address.getMaxAddressLineIndex()-1));
+			while(m.find()) {
+				String identifiedRegexZIP = m.group();
+				try {
+					ZIPCode zipCode = ZIPCode.getByZIPcode(identifiedRegexZIP);
+					if(zipCode != null) {
+						LogUtil.appendLog("AlergyLocationService.getDistrictFromLastAddress(): got from last AddressLine " + identifiedRegexZIP + "- " + zipCode.getDistrict().getDistrictName());
+						return zipCode.getDistrict();
+					}
+				} catch (Exception e) {
+					LogUtil.appendLog("AlergyLocationService.getDistrictFromLastAddress(): Exception - " + identifiedRegexZIP + e);
+				}
+			}
 		}
-
+		
 		//try to fetch District from subAdminArea
 		String subAdminArea = address.getSubAdminArea();
 		
