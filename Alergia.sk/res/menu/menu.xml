@@ -9,6 +9,11 @@
           android:icon="@android:drawable/ic_menu_send"
           android:showAsAction="ifRoom|withText" />
     
+    <item android:id="@+id/help"
+          android:title="@string/menuhelp"
+          android:icon="@android:drawable/ic_menu_help"
+          android:showAsAction="ifRoom|withText" />
+    
     <item android:id="@+id/close"
           android:title="@string/menuclose"
           android:icon="@android:drawable/ic_menu_close_clear_cancel"

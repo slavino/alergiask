@@ -4,7 +4,9 @@ import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
@@ -402,6 +404,10 @@ public class AlergiaskActivity extends Activity {
 				LogUtil.appendLog("#AlergiaskActivity.onOptionsItemSelected(): Sharing info.");
 				share();
 				break;
+			case R.id.help:
+				LogUtil.appendLog("#AlergiaskActivity.onOptionsItemSelected(): Showing help.");
+				help();
+				break;
 			case R.id.senderror:
 				LogUtil.appendLog("#AlergiaskActivity.onOptionsItemSelected(): Sending error log to developer.");
 				sendErrorReport();
@@ -619,4 +625,21 @@ public class AlergiaskActivity extends Activity {
 		System.runFinalizersOnExit(true);
 		System.exit(0);
 	}
+	
+	/**
+	 * Show help dialog.
+	 */
+	private void help() {
+		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+		alertDialog.setTitle("Alergia.sk\nHelp...");
+		alertDialog.setMessage(getResources().getText(R.string.helpText).toString());
+		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+		   public void onClick(DialogInterface dialog, int which) {
+		      // here you can add functions
+		   }
+		});
+		alertDialog.setIcon(R.drawable.ic_launcher);
+		alertDialog.show();
+	}
+	
 }

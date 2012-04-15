@@ -9,5 +9,9 @@
     
     <string name="menuclose">Close</string>
     <string name="menushare">Share</string>
+    <string name="menuhelp">Help</string>
     <string name="menusenderror">Send error report</string>
+    
+    <string name="helpText">Horizontálnymi ťahmi vpravo a vľavo meníte zvolený kraj, okres a alergén.\n\nVertikálnymi ťahmi sa prepínate medzi úrovňami volieb - kraje, okresy a alergény.</string>
+    
 </resources>
