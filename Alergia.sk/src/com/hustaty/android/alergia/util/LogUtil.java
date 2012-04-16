@@ -12,12 +12,15 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
+import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 
 public class LogUtil {
 	
 	private static final String logFileLocation = Environment.getExternalStorageDirectory() +"/alergia.log";
+	
+	private static final Uri logFileUri = Uri.fromFile(new File(logFileLocation));
 	
 	private static void checkFileExists() {
 		File logFile = new File(logFileLocation);
@@ -82,4 +85,14 @@ public class LogUtil {
 			clearLog();
 		}
 	}
+
+	public static String getLogfilelocation() {
+		return LogUtil.logFileLocation;
+	}
+
+	public static Uri getLogFileUri() {
+		return LogUtil.logFileUri;
+	}
+	
+	
 }

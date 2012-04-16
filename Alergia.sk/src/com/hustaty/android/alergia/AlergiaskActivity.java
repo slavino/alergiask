@@ -606,14 +606,15 @@ public class AlergiaskActivity extends Activity {
 	 * Send Error report and truncate the log file.
 	 */
 	private void sendErrorReport() {
-		String logContent = LogUtil.readLog();
+//		String logContent = LogUtil.readLog();
 		Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
 		emailIntent.setType("plain/text");
 		emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{ "slavomir.hustaty@gmail.com" });
 		emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Alergia.sk - error report");
-		emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, logContent);
+		emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Error report is attached.\n");
+		emailIntent.putExtra(android.content.Intent.EXTRA_STREAM, LogUtil.getLogFileUri());
 		this.startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-		LogUtil.clearLog();
+//		LogUtil.clearLog();
 	}
 	
 	/**
