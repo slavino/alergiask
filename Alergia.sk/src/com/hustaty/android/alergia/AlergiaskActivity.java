@@ -163,6 +163,18 @@ public class AlergiaskActivity extends Activity {
 	 */
 	private void initUI(Configuration newConfig) {
 		
+//		ConnectivityManager connectivityManager =  (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+//		NetworkInfo[] networkInfoArray = connectivityManager.getAllNetworkInfo();
+//		
+//		boolean isDeviceAbleToConnect = false;
+//		for(NetworkInfo networkInfo : networkInfoArray) {
+//			if(networkInfo.getState().equals(NetworkInfo.State.DISCONNECTED)) {
+//				//?
+//			} else {
+//				isDeviceAbleToConnect = true;
+//			}
+//		}
+		
 		/**
 		 * county textView
 		 */
@@ -261,6 +273,10 @@ public class AlergiaskActivity extends Activity {
 			}
 		});
 
+		
+//		if(!isDeviceAbleToConnect) {
+//			this.alergeneDetailsTextView.setText("You might be offline.\nPlease, check your internet connection.");
+//		}
 	}
 
 	
