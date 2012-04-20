@@ -9,6 +9,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -179,13 +180,6 @@ public class AlergiaskActivity extends Activity {
 		 * county textView
 		 */
 		this.countyNameTextView = (TextView)findViewById(R.id.countyNameTextView);
-//		this.countyNameTextView = new TextView(container.getContext());
-//		LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-//				RelativeLayout.LayoutParams.WRAP_CONTENT,
-//				RelativeLayout.LayoutParams.WRAP_CONTENT);
-//		layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL, R.id.container);
-//		layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, R.id.container);
-//		layoutParams.topMargin = 5;
 
 		if(AlergiaskActivity.currentCounty != null) {
 			this.countyNameTextView.setText(AlergiaskActivity.currentCounty.getCountyName());
@@ -194,22 +188,11 @@ public class AlergiaskActivity extends Activity {
 			this.countyNameTextView.setText(counties.get(0));
 			this.depthLevel = Level.COUNTY;
 		}
-//		this.countyNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 25);
-//		this.countyNameTextView.setId(0x7f060000);
-//		this.container.addView(this.countyNameTextView, layoutParams);
-
 		
 		/**
 		 * district textView
 		 */
 		this.districtNameTextView = (TextView)findViewById(R.id.districtNameTextView);
-//		this.districtNameTextView = new TextView(container.getContext());
-//		layoutParams = new RelativeLayout.LayoutParams(
-//				RelativeLayout.LayoutParams.WRAP_CONTENT,
-//				RelativeLayout.LayoutParams.WRAP_CONTENT);
-//		layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL, R.id.container);
-//		layoutParams.addRule(RelativeLayout.BELOW, this.countyNameTextView.getId());
-//		layoutParams.topMargin = 5;
 
 		if(AlergiaskActivity.currentDistrict != null) {
 			this.districtNameTextView.setText(AlergiaskActivity.currentDistrict.getDistrictName());
@@ -218,23 +201,11 @@ public class AlergiaskActivity extends Activity {
 			this.districtNameTextView.setText("");
 			this.depthLevel = Level.COUNTY;
 		}
-//		this.districtNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 22);
-//		this.districtNameTextView.setId(0x7f070000);
-//		this.container.addView(this.districtNameTextView, layoutParams);
-
 		
 		/**
 		 * alergene textView 
 		 */
 		this.alergeneNameTextView = (TextView)findViewById(R.id.alergeneNameTextView);
-//		this.alergeneNameTextView = new TextView(container.getContext());
-//		LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-//				RelativeLayout.LayoutParams.WRAP_CONTENT,
-//				RelativeLayout.LayoutParams.WRAP_CONTENT);
-//		layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL, R.id.container);
-//		layoutParams.addRule(RelativeLayout.BELOW,
-//				this.districtNameTextView.getId());
-//		layoutParams.topMargin = 5;
 
 		if(AlergiaskActivity.currentAlergene != null) {
 			this.alergeneNameTextView.setText(AlergiaskActivity.currentAlergene.getAlergeneName());
@@ -244,21 +215,11 @@ public class AlergiaskActivity extends Activity {
 			this.depthLevel = (AlergiaskActivity.currentDistrict != null ? Level.DISTRICT : Level.COUNTY);
 		}
 		
-//		this.alergeneNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
-//		this.alergeneNameTextView.setId(0x7f080000);
-//		this.container.addView(this.alergeneNameTextView, layoutParams);
 
 		/**
 		 * alergene details textView
 		 */
 		this.alergeneDetailsTextView = (TextView)findViewById(R.id.alergeneDetailsTextView);
-//		this.alergeneDetailsTextView = new TextView(container.getContext());
-//		layoutParams = new RelativeLayout.LayoutParams(
-//				RelativeLayout.LayoutParams.WRAP_CONTENT,
-//				RelativeLayout.LayoutParams.WRAP_CONTENT);
-//		layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, R.id.container);
-//		layoutParams.addRule(RelativeLayout.CENTER_VERTICAL, R.id.container);
-//		layoutParams.topMargin = 5;
 		
 		if(AlergiaskActivity.currentAlergene != null) {
 			this.alergeneDetailsTextView.setText("Loading...");
@@ -267,9 +228,6 @@ public class AlergiaskActivity extends Activity {
 		} else {
 			this.alergeneDetailsTextView.setText("Vertikálnymi a horizontálnymi\nťahmi po displeji ovládate\nzobrazené položky.");
 		}
-//		this.alergeneDetailsTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
-//		this.alergeneDetailsTextView.setId(0x7f090000);
-//		this.container.addView(this.alergeneDetailsTextView, layoutParams);
 
 		
 		ImageView prevImageButton = (ImageView) findViewById(R.id.countyPrevButton);
@@ -283,6 +241,36 @@ public class AlergiaskActivity extends Activity {
 		nextImageButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				modify(Direction.LEFT);
+			}
+		});
+
+		ImageView alergeneCurrentWeekTextOverview = (ImageView) findViewById(R.id.alergeneCurrentWeekTextOverview);
+		alergeneCurrentWeekTextOverview.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				String url = "http://alergia.sk/pelove-spravodajstvo/verejnost/aktualne/komentar";
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW);
+				browserIntent.setData(Uri.parse(url));
+				startActivity(browserIntent);
+			}
+		});
+
+		ImageView alergeneAnnualOverview = (ImageView) findViewById(R.id.alergeneAnnualOverview);
+		alergeneAnnualOverview.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				String url = "http://alergia.sk/index.php?page=kalendar";
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW);
+				browserIntent.setData(Uri.parse(url));
+				startActivity(browserIntent);
+			}
+		});
+
+		ImageView alergeneWeeklyOverview = (ImageView) findViewById(R.id.alergeneWeeklyOverview);
+		alergeneWeeklyOverview.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				String url = "http://alergia.sk/pelove-spravodajstvo/verejnost/aktualne/tabulka?k=" + AlergiaskActivity.currentCounty.getCountyNumber();
+				Intent browserIntent = new Intent(Intent.ACTION_VIEW);
+				browserIntent.setData(Uri.parse(url));
+				startActivity(browserIntent);
 			}
 		});
 

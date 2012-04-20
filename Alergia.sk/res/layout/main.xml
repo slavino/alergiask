@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="20px"
+            android:layout_marginTop="5px"
             android:textSize="25dp"/>
 
         <ImageView
@@ -59,8 +59,35 @@
             android:layout_marginTop="5px"
             android:textSize="15dp"/>
         
-        
-        
-        </RelativeLayout>
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true" 
+            android:layout_below="@id/alergeneDetailsTextView"
+            android:paddingTop="5px">
+			<TableRow
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/alergeneCurrentWeekTextOverview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@android:drawable/ic_menu_week" />
+                <ImageView
+                    android:id="@+id/alergeneAnnualOverview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@android:drawable/ic_menu_month" 
+                    android:paddingLeft="25px"
+                    android:paddingRight="25px"/>
+                <ImageView
+                    android:id="@+id/alergeneWeeklyOverview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@android:drawable/ic_menu_today" />
+                
+            </TableRow>
+        </TableLayout>
+</RelativeLayout>
     
 </FrameLayout>
