@@ -8,7 +8,59 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:gravity="clip_vertical" >
+        
+        <TextView 
+            android:id="@+id/countyNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20px"
+            android:textSize="25dp"/>
 
-    </RelativeLayout>
+        <ImageView
+            android:id="@+id/countyPrevButton"
+            android:layout_width="92px"
+            android:layout_height="99px"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/prev_button"/>
+
+        <ImageView
+            android:id="@+id/countyNextButton"
+            android:layout_width="92px"
+            android:layout_height="99px"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/next_button"/>
+
+        <TextView android:id="@+id/districtNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/countyNameTextView"
+            android:layout_marginTop="5px"
+            android:textSize="22dp"/>
+        
+        <TextView android:id="@+id/alergeneNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/districtNameTextView"
+            android:layout_marginTop="5px"
+            android:textSize="20dp"/>
+        
+        <TextView android:id="@+id/alergeneDetailsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="5px"
+            android:textSize="15dp"/>
+        
+        
+        
+        </RelativeLayout>
     
 </FrameLayout>

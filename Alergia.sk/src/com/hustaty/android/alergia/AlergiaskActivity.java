@@ -12,11 +12,12 @@ import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
@@ -177,13 +178,14 @@ public class AlergiaskActivity extends Activity {
 		/**
 		 * county textView
 		 */
-		this.countyNameTextView = new TextView(container.getContext());
-		LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-				RelativeLayout.LayoutParams.WRAP_CONTENT,
-				RelativeLayout.LayoutParams.WRAP_CONTENT);
-		layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL, R.id.container);
-		layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, R.id.container);
-		layoutParams.topMargin = 5;
+		this.countyNameTextView = (TextView)findViewById(R.id.countyNameTextView);
+//		this.countyNameTextView = new TextView(container.getContext());
+//		LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+//				RelativeLayout.LayoutParams.WRAP_CONTENT,
+//				RelativeLayout.LayoutParams.WRAP_CONTENT);
+//		layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL, R.id.container);
+//		layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, R.id.container);
+//		layoutParams.topMargin = 5;
 
 		if(AlergiaskActivity.currentCounty != null) {
 			this.countyNameTextView.setText(AlergiaskActivity.currentCounty.getCountyName());
@@ -192,22 +194,22 @@ public class AlergiaskActivity extends Activity {
 			this.countyNameTextView.setText(counties.get(0));
 			this.depthLevel = Level.COUNTY;
 		}
-		this.countyNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 25);
-		this.countyNameTextView.setId(0x7f060000);
-		this.container.addView(this.countyNameTextView, layoutParams);
+//		this.countyNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 25);
+//		this.countyNameTextView.setId(0x7f060000);
+//		this.container.addView(this.countyNameTextView, layoutParams);
 
 		
 		/**
 		 * district textView
 		 */
-		this.districtNameTextView = new TextView(container.getContext());
-		layoutParams = new RelativeLayout.LayoutParams(
-				RelativeLayout.LayoutParams.WRAP_CONTENT,
-				RelativeLayout.LayoutParams.WRAP_CONTENT);
-		layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL, R.id.container);
-		layoutParams.addRule(RelativeLayout.BELOW,
-				this.countyNameTextView.getId());
-		layoutParams.topMargin = 5;
+		this.districtNameTextView = (TextView)findViewById(R.id.districtNameTextView);
+//		this.districtNameTextView = new TextView(container.getContext());
+//		layoutParams = new RelativeLayout.LayoutParams(
+//				RelativeLayout.LayoutParams.WRAP_CONTENT,
+//				RelativeLayout.LayoutParams.WRAP_CONTENT);
+//		layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL, R.id.container);
+//		layoutParams.addRule(RelativeLayout.BELOW, this.countyNameTextView.getId());
+//		layoutParams.topMargin = 5;
 
 		if(AlergiaskActivity.currentDistrict != null) {
 			this.districtNameTextView.setText(AlergiaskActivity.currentDistrict.getDistrictName());
@@ -216,22 +218,23 @@ public class AlergiaskActivity extends Activity {
 			this.districtNameTextView.setText("");
 			this.depthLevel = Level.COUNTY;
 		}
-		this.districtNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 22);
-		this.districtNameTextView.setId(0x7f070000);
-		this.container.addView(this.districtNameTextView, layoutParams);
+//		this.districtNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 22);
+//		this.districtNameTextView.setId(0x7f070000);
+//		this.container.addView(this.districtNameTextView, layoutParams);
 
 		
 		/**
 		 * alergene textView 
 		 */
-		this.alergeneNameTextView = new TextView(container.getContext());
-		layoutParams = new RelativeLayout.LayoutParams(
-				RelativeLayout.LayoutParams.WRAP_CONTENT,
-				RelativeLayout.LayoutParams.WRAP_CONTENT);
-		layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL, R.id.container);
-		layoutParams.addRule(RelativeLayout.BELOW,
-				this.districtNameTextView.getId());
-		layoutParams.topMargin = 5;
+		this.alergeneNameTextView = (TextView)findViewById(R.id.alergeneNameTextView);
+//		this.alergeneNameTextView = new TextView(container.getContext());
+//		LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+//				RelativeLayout.LayoutParams.WRAP_CONTENT,
+//				RelativeLayout.LayoutParams.WRAP_CONTENT);
+//		layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL, R.id.container);
+//		layoutParams.addRule(RelativeLayout.BELOW,
+//				this.districtNameTextView.getId());
+//		layoutParams.topMargin = 5;
 
 		if(AlergiaskActivity.currentAlergene != null) {
 			this.alergeneNameTextView.setText(AlergiaskActivity.currentAlergene.getAlergeneName());
@@ -241,20 +244,21 @@ public class AlergiaskActivity extends Activity {
 			this.depthLevel = (AlergiaskActivity.currentDistrict != null ? Level.DISTRICT : Level.COUNTY);
 		}
 		
-		this.alergeneNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
-		this.alergeneNameTextView.setId(0x7f080000);
-		this.container.addView(this.alergeneNameTextView, layoutParams);
+//		this.alergeneNameTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
+//		this.alergeneNameTextView.setId(0x7f080000);
+//		this.container.addView(this.alergeneNameTextView, layoutParams);
 
 		/**
 		 * alergene details textView
 		 */
-		this.alergeneDetailsTextView = new TextView(container.getContext());
-		layoutParams = new RelativeLayout.LayoutParams(
-				RelativeLayout.LayoutParams.WRAP_CONTENT,
-				RelativeLayout.LayoutParams.WRAP_CONTENT);
-		layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, R.id.container);
-		layoutParams.addRule(RelativeLayout.CENTER_VERTICAL, R.id.container);
-		layoutParams.topMargin = 5;
+		this.alergeneDetailsTextView = (TextView)findViewById(R.id.alergeneDetailsTextView);
+//		this.alergeneDetailsTextView = new TextView(container.getContext());
+//		layoutParams = new RelativeLayout.LayoutParams(
+//				RelativeLayout.LayoutParams.WRAP_CONTENT,
+//				RelativeLayout.LayoutParams.WRAP_CONTENT);
+//		layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, R.id.container);
+//		layoutParams.addRule(RelativeLayout.CENTER_VERTICAL, R.id.container);
+//		layoutParams.topMargin = 5;
 		
 		if(AlergiaskActivity.currentAlergene != null) {
 			this.alergeneDetailsTextView.setText("Loading...");
@@ -263,9 +267,24 @@ public class AlergiaskActivity extends Activity {
 		} else {
 			this.alergeneDetailsTextView.setText("Vertikálnymi a horizontálnymi\nťahmi po displeji ovládate\nzobrazené položky.");
 		}
-		this.alergeneDetailsTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
-		this.alergeneDetailsTextView.setId(0x7f090000);
-		this.container.addView(this.alergeneDetailsTextView, layoutParams);
+//		this.alergeneDetailsTextView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
+//		this.alergeneDetailsTextView.setId(0x7f090000);
+//		this.container.addView(this.alergeneDetailsTextView, layoutParams);
+
+		
+		ImageView prevImageButton = (ImageView) findViewById(R.id.countyPrevButton);
+		prevImageButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				modify(Direction.RIGHT);
+			}
+		});
+
+		ImageView nextImageButton = (ImageView) findViewById(R.id.countyNextButton);
+		nextImageButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				modify(Direction.LEFT);
+			}
+		});
 
 		// Google AdMob advertisement
 		AdSize adSize = AdSize.BANNER;
@@ -279,7 +298,7 @@ public class AlergiaskActivity extends Activity {
 		}
 		
 		this.adView = new AdView(this, adSize, "a14f7d7523406d6");
-		layoutParams = new RelativeLayout.LayoutParams(
+		LayoutParams layoutParams = new RelativeLayout.LayoutParams(
 				RelativeLayout.LayoutParams.WRAP_CONTENT,
 				RelativeLayout.LayoutParams.WRAP_CONTENT);
 		layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL, R.id.container);
@@ -439,8 +458,7 @@ public class AlergiaskActivity extends Activity {
 					if (direction == Direction.RIGHT) {
 						int index = (c - 1 >= 0 ? c - 1 : counties.size() - 1);
 						this.countyNameTextView.setText(counties.get(index));
-						AlergiaskActivity.currentCounty = County
-								.getCountyByCountyName(counties.get(index));
+						AlergiaskActivity.currentCounty = County.getCountyByCountyName(counties.get(index));
 						break;
 					} else if (direction == Direction.LEFT) {
 						int index = (c + 1 >= counties.size() ? 0 : c + 1);
@@ -642,5 +660,5 @@ public class AlergiaskActivity extends Activity {
 		alertDialog.setIcon(R.drawable.ic_launcher);
 		alertDialog.show();
 	}
-	
+		
 }
