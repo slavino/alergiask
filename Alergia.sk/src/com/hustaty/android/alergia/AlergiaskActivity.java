@@ -19,13 +19,8 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
-import com.google.ads.AdRequest;
-import com.google.ads.AdSize;
-import com.google.ads.AdView;
 import com.hustaty.android.alergia.beans.DistrictStatus;
 import com.hustaty.android.alergia.enums.Alergene;
 import com.hustaty.android.alergia.enums.Concentration;
@@ -43,8 +38,6 @@ public class AlergiaskActivity extends Activity {
 
 	public static final String LOG_TAG = "AlergiaSK";
 
-	private RelativeLayout container;
-
 	private Level depthLevel = Level.COUNTY;
 
 	private static County currentCounty = County.BB;
@@ -61,13 +54,9 @@ public class AlergiaskActivity extends Activity {
 	private TextView districtNameTextView;
 	private TextView alergeneNameTextView;
 
-	// Temporary and will be removed
 	private TextView alergeneDetailsTextView;
 	
-	private AdView adView;
-
 	private boolean gotGPSfix = false;
-	
 	
 	//A ProgressDialog object  
     private ProgressDialog progressDialog;  
@@ -124,7 +113,7 @@ public class AlergiaskActivity extends Activity {
                     int counter = 0;  
                     //While the counter is smaller than four  
                     while(counter <= 4) {  
-                        //Wait 850 milliseconds  
+                        //Wait 500 milliseconds  
                         this.wait(500);  
                         //Increment the counter  
                         counter++;  
@@ -154,7 +143,6 @@ public class AlergiaskActivity extends Activity {
             progressDialog.dismiss();  
             //initialize the View  
             setContentView(R.layout.main); 
-            AlergiaskActivity.this.container = (RelativeLayout) findViewById(R.id.container);
             initUI(null);
         }  
     }  
@@ -167,7 +155,6 @@ public class AlergiaskActivity extends Activity {
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 		setContentView(R.layout.main);
-		this.container = (RelativeLayout) findViewById(R.id.container);
 		initUI(newConfig);
 	}
 
@@ -274,34 +261,6 @@ public class AlergiaskActivity extends Activity {
 			}
 		});
 
-		// Google AdMob advertisement
-		AdSize adSize = AdSize.BANNER;
-
-		if(newConfig != null) {
-			if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-				adSize = AdSize.IAB_BANNER;
-			}
-		} else {
-			//keep defaults
-		}
-		
-		this.adView = new AdView(this, adSize, "a14f7d7523406d6");
-		LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-				RelativeLayout.LayoutParams.WRAP_CONTENT,
-				RelativeLayout.LayoutParams.WRAP_CONTENT);
-		layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL, R.id.container);
-		layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM,
-				this.alergeneDetailsTextView.getId());
-		layoutParams.topMargin = 5;
-		this.container.addView(this.adView, layoutParams);
-		AdRequest adRequest = new AdRequest();
-		
-		adRequest.addTestDevice("5B68BB4FA54B94EA5FE1EA69B5824A66");
-		adRequest.addTestDevice("30335FA7CB8500EC");
-		adRequest.addTestDevice("4EE33D8E7538E6E96000E63FB6E62910");
-		this.adView.loadAd(adRequest);
-		// Google AdMob advertisement
-
 	}
 
 	
@@ -376,9 +335,6 @@ public class AlergiaskActivity extends Activity {
 	 */
 	@Override
 	protected void onDestroy() {
-		if (this.adView != null) {
-			this.adView.destroy();
-		}
 		super.onDestroy();
 	}
 
@@ -638,7 +594,7 @@ public class AlergiaskActivity extends Activity {
 	 */
 	private void help() {
 		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-		alertDialog.setTitle("Alergia.sk\nHelp...");
+		alertDialog.setTitle("Alergia.sk");
 		alertDialog.setMessage(getResources().getText(R.string.helpText).toString());
 		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
 		   public void onClick(DialogInterface dialog, int which) {
