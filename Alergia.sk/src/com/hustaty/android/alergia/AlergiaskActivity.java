@@ -34,6 +34,9 @@ import com.hustaty.android.alergia.util.HttpUtil;
 import com.hustaty.android.alergia.util.LogUtil;
 import com.hustaty.android.alergia.util.XmlUtil;
 
+import com.google.android.apps.analytics.GoogleAnalyticsTracker;
+
+
 public class AlergiaskActivity extends Activity {
 
 	public static final String LOG_TAG = "AlergiaSK";
@@ -60,7 +63,9 @@ public class AlergiaskActivity extends Activity {
 	
 	//A ProgressDialog object  
     private ProgressDialog progressDialog;  
-    
+
+    GoogleAnalyticsTracker tracker;
+
 	/** 
 	 * Called when the activity is first created. 
 	 * 
@@ -71,7 +76,12 @@ public class AlergiaskActivity extends Activity {
 
 		LogUtil.appendLog("#AlergiaskActivity.onCreate(): ### STARTING APPLICATION ###");
 		//Initialize a LoadViewTask object and call the execute() method  
-        new LoadViewTask().execute();         
+
+		tracker = GoogleAnalyticsTracker.getInstance();
+		// Start the tracker in manual dispatch mode...
+	    tracker.startNewSession("UA-31112884-1", 20, this);
+
+		new LoadViewTask().execute();         
   	}
 
 	
@@ -232,6 +242,13 @@ public class AlergiaskActivity extends Activity {
 		ImageView prevImageButton = (ImageView) findViewById(R.id.countyPrevButton);
 		prevImageButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
+				
+				tracker.trackEvent(
+			            "Clicks",  // Category
+			            "countyPrevButton",  // Action
+			            "clicked", // Label
+			            77);       // Value
+
 				modify(Direction.RIGHT);
 			}
 		});
@@ -239,6 +256,13 @@ public class AlergiaskActivity extends Activity {
 		ImageView nextImageButton = (ImageView) findViewById(R.id.countyNextButton);
 		nextImageButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
+
+				tracker.trackEvent(
+			            "Clicks",  // Category
+			            "countyNextButton",  // Action
+			            "clicked", // Label
+			            77);       // Value
+
 				modify(Direction.LEFT);
 			}
 		});
@@ -247,6 +271,9 @@ public class AlergiaskActivity extends Activity {
 		alergeneCurrentWeekTextOverview.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				String url = "http://alergia.sk/pelove-spravodajstvo/verejnost/aktualne/komentar";
+				
+				tracker.trackPageView("alergeneCurrentWeekTextOverview");
+				
 				Intent browserIntent = new Intent(Intent.ACTION_VIEW);
 				browserIntent.setData(Uri.parse(url));
 				startActivity(browserIntent);
@@ -257,6 +284,9 @@ public class AlergiaskActivity extends Activity {
 		alergeneAnnualOverview.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				String url = "http://alergia.sk/index.php?page=kalendar";
+				
+				tracker.trackPageView("alergeneAnnualOverview");
+
 				Intent browserIntent = new Intent(Intent.ACTION_VIEW);
 				browserIntent.setData(Uri.parse(url));
 				startActivity(browserIntent);
@@ -267,6 +297,9 @@ public class AlergiaskActivity extends Activity {
 		alergeneWeeklyOverview.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				String url = "http://alergia.sk/pelove-spravodajstvo/verejnost/aktualne/tabulka?k=" + AlergiaskActivity.currentCounty.getCountyNumber();
+				
+				tracker.trackPageView("alergeneWeeklyOverview");
+
 				Intent browserIntent = new Intent(Intent.ACTION_VIEW);
 				browserIntent.setData(Uri.parse(url));
 				startActivity(browserIntent);
@@ -292,14 +325,18 @@ public class AlergiaskActivity extends Activity {
 				float y = event.getRawY();
 				if (Math.abs((float) x / (float) y) > 1) {
 					if (x <= 0) {
+						tracker.trackEvent("Moves", "Trackball", "left", 77);
 						modify(Direction.LEFT);
 					} else {
+						tracker.trackEvent("Moves", "Trackball", "right", 77);
 						modify(Direction.RIGHT);
 					}
 				} else {
 					if (y <= 0) {
+						tracker.trackEvent("Moves", "Trackball", "up", 77);
 						modify(Direction.UP);
 					} else {
+						tracker.trackEvent("Moves", "Trackball", "down", 77);
 						modify(Direction.DOWN);
 					}
 				}
@@ -329,14 +366,18 @@ public class AlergiaskActivity extends Activity {
 			int deltaY = startYcoord - (int) event.getRawY();
 			if (Math.abs((float) deltaX / (float) deltaY) > 1) {
 				if (deltaX >= 0) {
+					tracker.trackEvent("Moves", "Touch", "left", 77);
 					modify(Direction.LEFT);
 				} else {
+					tracker.trackEvent("Moves", "Touch", "right", 77);
 					modify(Direction.RIGHT);
 				}
 			} else {
 				if (deltaY > 0) {
+					tracker.trackEvent("Moves", "Touch", "down", 77);
 					modify(Direction.DOWN);
 				} else {
+					tracker.trackEvent("Moves", "Touch", "up", 77);
 					modify(Direction.UP);
 				}
 			}
@@ -352,6 +393,8 @@ public class AlergiaskActivity extends Activity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		// Stop the tracker when it is no longer needed.
+	    tracker.stopSession();
 	}
 
 	/**
@@ -523,6 +566,15 @@ public class AlergiaskActivity extends Activity {
 				+ AlergiaskActivity.currentCounty.getCountyNumber()
 				+ "-"
 				+ AlergiaskActivity.currentAlergene.getAlergeneNumber();
+		
+		tracker.trackPageView(
+				"/" 
+				+ ( currentCounty == null ? "null" : currentCounty.getCountyName()) 
+				+ "/" 
+				+ (currentDistrict == null ? "null" : currentDistrict.getDistrictName()) 
+				+ "/" 
+				+ (currentAlergene == null ? "null" : currentAlergene.getAlergeneName()));
+		
 		try {
 			String content = HttpUtil.getContent(url);
 
@@ -578,7 +630,10 @@ public class AlergiaskActivity extends Activity {
 		sendIntent.setAction(Intent.ACTION_SEND);
 		sendIntent.putExtra(Intent.EXTRA_TEXT, message.toString());
 		sendIntent.setType("text/plain");
-		startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.share)));
+
+		tracker.trackPageView("/share");
+
+		this.startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.share)));
 	}
 	/**
 	 * Send Error report and truncate the log file.
@@ -591,6 +646,9 @@ public class AlergiaskActivity extends Activity {
 		emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Alergia.sk - error report");
 		emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Error report is attached.\n");
 		emailIntent.putExtra(android.content.Intent.EXTRA_STREAM, LogUtil.getLogFileUri());
+
+		tracker.trackPageView("/sendErrorReport");
+		
 		this.startActivity(Intent.createChooser(emailIntent, "Send mail..."));
 //		LogUtil.clearLog();
 	}
@@ -600,6 +658,9 @@ public class AlergiaskActivity extends Activity {
 	 */
 	private void exit() {
 		LogUtil.appendLog("#AlergiaskActivity.exit(): ### EXITING APPLICATION ###");
+
+		tracker.trackPageView("/exit");
+		
 		finish();
 		System.runFinalizersOnExit(true);
 		System.exit(0);
@@ -609,6 +670,9 @@ public class AlergiaskActivity extends Activity {
 	 * Show help dialog.
 	 */
 	private void help() {
+
+		tracker.trackPageView("/help");
+
 		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 		alertDialog.setTitle("Alergia.sk");
 		alertDialog.setMessage(getResources().getText(R.string.helpText).toString());
