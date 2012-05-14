@@ -6,12 +6,14 @@ import java.util.List;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,6 +23,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 import com.hustaty.android.alergia.beans.DistrictStatus;
 import com.hustaty.android.alergia.enums.Alergene;
 import com.hustaty.android.alergia.enums.Concentration;
@@ -33,8 +36,6 @@ import com.hustaty.android.alergia.service.location.AlergyLocationService;
 import com.hustaty.android.alergia.util.HttpUtil;
 import com.hustaty.android.alergia.util.LogUtil;
 import com.hustaty.android.alergia.util.XmlUtil;
-
-import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 
 
 public class AlergiaskActivity extends Activity {
@@ -59,6 +60,9 @@ public class AlergiaskActivity extends Activity {
 
 	private TextView alergeneDetailsTextView;
 	
+	private ImageView upImageButton;
+	private ImageView downImageButton;
+	
 	private boolean gotGPSfix = false;
 	
 	//A ProgressDialog object  
@@ -82,7 +86,7 @@ public class AlergiaskActivity extends Activity {
 	    tracker.startNewSession("UA-31112884-1", 20, this);
 
 		new LoadViewTask().execute();         
-  	}
+	}
 
 	
 	//////////////////////////////////////////////////////////////////////////////////////////
@@ -267,6 +271,34 @@ public class AlergiaskActivity extends Activity {
 			}
 		});
 
+		this.upImageButton = (ImageView) findViewById(R.id.upButton);
+		this.upImageButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+
+				tracker.trackEvent(
+			            "Clicks",  // Category
+			            "upButton",  // Action
+			            "clicked", // Label
+			            77);       // Value
+
+				modify(Direction.DOWN);
+			}
+		});
+
+		this.downImageButton = (ImageView) findViewById(R.id.downButton);
+		this.downImageButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+
+				tracker.trackEvent(
+			            "Clicks",  // Category
+			            "downButton",  // Action
+			            "clicked", // Label
+			            77);       // Value
+
+				modify(Direction.UP);
+			}
+		});
+
 		ImageView alergeneCurrentWeekTextOverview = (ImageView) findViewById(R.id.alergeneCurrentWeekTextOverview);
 		alergeneCurrentWeekTextOverview.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -444,6 +476,9 @@ public class AlergiaskActivity extends Activity {
 	 */
 	private void modify(Direction direction) {
 
+		Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+		long[] vibratePattern = { 0, 200, 200 };
+		
 		List<String> districts = District
 				.getDistrictNamesByCounty(County
 						.getCountyByCountyName(countyNameTextView.getText()
@@ -477,6 +512,7 @@ public class AlergiaskActivity extends Activity {
 						break;
 					} else if (direction == Direction.DOWN) {
 						// TODO but what?
+						vibrator.vibrate(vibratePattern, -1);
 					}
 
 				}
@@ -485,7 +521,7 @@ public class AlergiaskActivity extends Activity {
 		case DISTRICT:
 
 			AlergiaskActivity.currentAlergene = null;
-			
+
 			if (direction == Direction.LEFT || direction == Direction.RIGHT) {
 				for (int c = 0; c < districts.size(); c++) {
 					if (districts.get(c).equals(districtNameTextView.getText())) {
@@ -508,6 +544,8 @@ public class AlergiaskActivity extends Activity {
 					this.alergeneNameTextView.setText(alergenes.get(0));
 					AlergiaskActivity.currentAlergene = Alergene
 							.getAlergeneByName(alergenes.get(0));
+					DistrictStatus data = loadData();
+					this.alergeneDetailsTextView.setText(data.toHumanReadableString());
 				}
 			} else if (direction == Direction.DOWN) {
 				// TODO
@@ -541,11 +579,12 @@ public class AlergiaskActivity extends Activity {
 			if (direction == Direction.UP) {
 				// TODO we are at bottom nothing more to display...maybe reload
 				// data?
+				vibrator.vibrate(vibratePattern, -1);
+				
 				depthLevel = Level.ALERGENE;
 				this.alergeneDetailsTextView.setText("Loading...");
 				DistrictStatus data = loadData();
 				this.alergeneDetailsTextView.setText(data.toHumanReadableString());
-//				share();
 			} else if (direction == Direction.DOWN) {
 				// TODO
 				this.depthLevel = Level.DISTRICT;

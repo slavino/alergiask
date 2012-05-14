@@ -27,12 +27,28 @@
             android:src="@drawable/prev_button"/>
 
         <ImageView
+            android:id="@+id/upButton"
+            android:layout_width="99px"
+            android:layout_height="92px"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/countyPrevButton"
+            android:src="@drawable/up_button"/>
+
+        <ImageView
             android:id="@+id/countyNextButton"
             android:layout_width="92px"
             android:layout_height="99px"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:src="@drawable/next_button"/>
+
+        <ImageView
+            android:id="@+id/downButton"
+            android:layout_width="99px"
+            android:layout_height="92px"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/countyNextButton"
+            android:src="@drawable/down_button"/>
 
         <TextView android:id="@+id/districtNameTextView"
             android:layout_width="wrap_content"
