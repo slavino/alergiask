@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="share">Share this info...</string>
+    <string name="share">Share this info&#8230;</string>
     <string name="app_name">Alergia.sk</string>
     <string name="district">District</string>
     <string name="county">County</string>
