@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="share">Zdieľať túto informáciu&#8230;</string>
+    <string name="app_name">Alergia.sk</string>
+    <string name="district">Okres</string>
+    <string name="county">Kraj</string>
+    <string name="allergene">Alergen</string>
+    
+    <string name="menuclose">Zavrieť</string>
+    <string name="menushare">Zdieľať</string>
+    <string name="menuhelp">Pomoc</string>
+    <string name="menusenderror">Odoslať chybové hlásenie</string>
+    
+    <string name="helpText">Horizontálnymi ťahmi vpravo a vľavo meníte zvolený kraj, okres a alergén.\n\nVertikálnymi ťahmi sa prepínate medzi úrovňami volieb - kraje, okresy a alergény.</string>
+    
+</resources>
