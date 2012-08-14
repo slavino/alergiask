@@ -42,6 +42,8 @@ public class AlergiaskActivity extends Activity {
 
 	public static final String LOG_TAG = "AlergiaSK";
 
+	private static Context context;
+	
 	private Level depthLevel = Level.COUNTY;
 
 	private static County currentCounty = County.BB;
@@ -77,7 +79,10 @@ public class AlergiaskActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		
+		//setup context to refer to this Activity
+		AlergiaskActivity.context = this;
+		
 		LogUtil.appendLog("#AlergiaskActivity.onCreate(): ### STARTING APPLICATION ###");
 		//Initialize a LoadViewTask object and call the execute() method  
 
@@ -88,27 +93,43 @@ public class AlergiaskActivity extends Activity {
 		new LoadViewTask().execute();         
 	}
 
+	/**
+	 * Returns the Activity Context. 
+	 * @return app context
+	 */
+	public static Context getContext() {
+		return AlergiaskActivity.context;
+	}
+	
 	
 	//////////////////////////////////////////////////////////////////////////////////////////
 	//To use the AsyncTask, it must be subclassed  
     private class LoadViewTask extends AsyncTask<Void, Integer, Void> {  
         //Before running code in separate thread  
         @Override  
-        protected void onPreExecute() {  
-            progressDialog = ProgressDialog.show(AlergiaskActivity.this,"Loading...",  
+        protected void onPreExecute() { 
+        	
+        	String loading = AlergiaskActivity.getContext().getString(R.string.loading);
+        	
+            progressDialog = ProgressDialog.show(AlergiaskActivity.this, loading,  
             	    "Loading application, please wait...", false, false); 
-            
-            AlergyLocationService locationService = new AlergyLocationService(AlergiaskActivity.this);
+			try {
+				AlergyLocationService locationService = new AlergyLocationService(
+						AlergiaskActivity.this);
 
-    		District district = locationService.getDistrictFromLastAddress();
+				District district = locationService
+						.getDistrictFromLastAddress();
 
-    		if(district != null && !gotGPSfix) {
-    			AlergiaskActivity.this.gotGPSfix = true;
-    			currentCounty = district.getCounty();
-    			currentDistrict = district;
-    			currentAlergene = Alergene.OVERALL;
-    			depthLevel = Level.ALERGENE;
-    		}
+				if (district != null && !gotGPSfix) {
+					AlergiaskActivity.this.gotGPSfix = true;
+					currentCounty = district.getCounty();
+					currentDistrict = district;
+					currentAlergene = Alergene.OVERALL;
+					depthLevel = Level.ALERGENE;
+				}
+			} catch (RuntimeException e) {
+				LogUtil.appendLog(e.getMessage());
+			}
         }  
   
         //The code to be executed in a background thread.  

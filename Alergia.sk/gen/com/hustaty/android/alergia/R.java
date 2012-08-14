@@ -47,6 +47,7 @@ public final class R {
         public static final int county=0x7f040003;
         public static final int district=0x7f040002;
         public static final int helpText=0x7f040009;
+        public static final int loading=0x7f04000a;
         public static final int menuclose=0x7f040005;
         public static final int menuhelp=0x7f040007;
         public static final int menusenderror=0x7f040008;
