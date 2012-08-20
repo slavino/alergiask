@@ -15,5 +15,9 @@
     <string name="helpText">By horizontal swipes left/right you change actual county, district and allergene.\n\nVertical swipes you change level of shown data - county, district and allergene.</string>
     
     <string name="loading">Loading&#8230;</string>
+    <string name="loadingLongText">Loading application, please wait&#8230;</string>
+    
+    <string name="concentration">Concentration:</string>
+    <string name="prognosis">Prognosis:</string>
     
 </resources>

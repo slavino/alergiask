@@ -1,5 +1,7 @@
 package com.hustaty.android.alergia.beans;
 
+import com.hustaty.android.alergia.AlergiaskActivity;
+import com.hustaty.android.alergia.R;
 import com.hustaty.android.alergia.enums.Alergene;
 import com.hustaty.android.alergia.enums.Concentration;
 import com.hustaty.android.alergia.enums.District;
@@ -95,10 +97,13 @@ public class DistrictStatus {
 	}
 	
 	public String toHumanReadableString() {
+		
+		String concentration = AlergiaskActivity.getContext().getString(R.string.concentration);
+		String prognosis =  AlergiaskActivity.getContext().getString(R.string.prognosis);
 		StringBuilder sb = new StringBuilder();
-		sb.append("Koncentrácia: ");
+		sb.append(concentration + " ");
 		sb.append(this.concentration.getDescription() + "\n\n");
-		sb.append("Prognóza: " + this.prognosis.getHumanReadableDescription());
+		sb.append(prognosis + " " + this.prognosis.getHumanReadableDescription());
 		return sb.toString(); 
 	}
 	

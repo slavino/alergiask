@@ -44,14 +44,17 @@ public final class R {
     public static final class string {
         public static final int allergene=0x7f040004;
         public static final int app_name=0x7f040001;
+        public static final int concentration=0x7f04000c;
         public static final int county=0x7f040003;
         public static final int district=0x7f040002;
         public static final int helpText=0x7f040009;
         public static final int loading=0x7f04000a;
+        public static final int loadingLongText=0x7f04000b;
         public static final int menuclose=0x7f040005;
         public static final int menuhelp=0x7f040007;
         public static final int menusenderror=0x7f040008;
         public static final int menushare=0x7f040006;
+        public static final int prognosis=0x7f04000d;
         public static final int share=0x7f040000;
     }
 }

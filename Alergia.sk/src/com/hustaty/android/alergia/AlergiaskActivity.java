@@ -110,9 +110,10 @@ public class AlergiaskActivity extends Activity {
         protected void onPreExecute() { 
         	
         	String loading = AlergiaskActivity.getContext().getString(R.string.loading);
+        	String loadingLongText = AlergiaskActivity.getContext().getString(R.string.loadingLongText);
         	
             progressDialog = ProgressDialog.show(AlergiaskActivity.this, loading,  
-            	    "Loading application, please wait...", false, false); 
+            		loadingLongText, false, false); 
 			try {
 				AlergyLocationService locationService = new AlergyLocationService(
 						AlergiaskActivity.this);
@@ -256,11 +257,13 @@ public class AlergiaskActivity extends Activity {
 		this.alergeneDetailsTextView = (TextView)findViewById(R.id.alergeneDetailsTextView);
 		
 		if(AlergiaskActivity.currentAlergene != null) {
-			this.alergeneDetailsTextView.setText("Loading...");
+			String loading = AlergiaskActivity.getContext().getString(R.string.loading);
+			this.alergeneDetailsTextView.setText(loading);
 			DistrictStatus data = loadData();
 			this.alergeneDetailsTextView.setText(data.toHumanReadableString());
 		} else {
-			this.alergeneDetailsTextView.setText("Vertikálnymi a horizontálnymi\nťahmi po displeji ovládate\nzobrazené položky.");
+			String helpText = AlergiaskActivity.getContext().getString(R.string.helpText);
+			this.alergeneDetailsTextView.setText(helpText);
 		}
 
 		
