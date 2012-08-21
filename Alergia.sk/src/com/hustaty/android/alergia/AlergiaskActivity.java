@@ -606,7 +606,7 @@ public class AlergiaskActivity extends Activity {
 				vibrator.vibrate(vibratePattern, -1);
 				
 				depthLevel = Level.ALERGENE;
-				this.alergeneDetailsTextView.setText("Loading...");
+				this.alergeneDetailsTextView.setText(getResources().getString(R.string.loading));
 				DistrictStatus data = loadData();
 				this.alergeneDetailsTextView.setText(data.toHumanReadableString());
 			} else if (direction == Direction.DOWN) {

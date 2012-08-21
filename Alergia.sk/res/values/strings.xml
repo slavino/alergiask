@@ -20,4 +20,21 @@
     <string name="concentration">Concentration:</string>
     <string name="prognosis">Prognosis:</string>
     
+    <!-- Prognosis -->
+    <string name="arrow_up">Growing concentration</string>
+    <string name="equal_up">Stable concentration,\n\t\t\t possible growth</string>
+    <string name="equal">Stable concentration</string>
+    <string name="equal_down">Stable concentration,\n\t\t\t possible decrease</string>
+    <string name="arrow_down">Decreasing concentration</string>
+    <string name="unknown">Unknown concentration</string>
+        
+    <!-- Concentration -->
+    <string name="none">None</string>
+    <string name="very_low">Very low</string>
+    <string name="low">Low</string>
+    <string name="middle">Middle</string>
+    <string name="high">High</string>
+    <string name="very_high">Very high</string>
+    <string name="concentration_unknown">Unknown</string>
+    
 </resources>

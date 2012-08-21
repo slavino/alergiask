@@ -20,4 +20,21 @@
     <string name="concentration">Koncentrácia:</string>
     <string name="prognosis">Prognóza:</string>
     
+    <!-- Prognosis -->
+    <string name="arrow_up">Zvýšenie koncentrácie</string>
+    <string name="equal_up">Koncentrácia ustálená,\n\t\t\t možné zvýšenie</string>
+    <string name="equal">Koncentrácia ustálená</string>
+    <string name="equal_down">Koncentrácia ustálená,\n\t\t\t možné zníženie</string>
+    <string name="arrow_down">Zníženie koncentrácie</string>
+    <string name="unknown">Neznáma</string>
+
+    <!-- Concentration -->
+    <string name="none">Žiadna</string>
+    <string name="very_low">Veľmi nízka</string>
+    <string name="low">Nízka</string>
+    <string name="middle">Stredná</string>
+    <string name="high">Vysoká</string>
+    <string name="very_high">Veľmi vysoká</string>
+    <string name="concentration_unknown">Neznáma</string>
+    
 </resources>

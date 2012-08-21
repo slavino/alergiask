@@ -1,25 +1,29 @@
 package com.hustaty.android.alergia.enums;
 
+import com.hustaty.android.alergia.AlergiaskActivity;
+import com.hustaty.android.alergia.R;
+
 public enum Concentration {
-	NONE("Nulová", 1),
-	VERY_LOW("Veľmi nízka", 2),
-	LOW("Nízka", 3),
-	MIDDLE("Stredná", 4),
-	HIGH("Vysoká", 5),
-	VERY_HIGH("Veľmi vysoká", 6),
-	UNKNOWN("Neznáma", 0);
 	
-	private String description;
+	NONE(R.string.none, 1),
+	VERY_LOW(R.string.very_low, 2),
+	LOW(R.string.low, 3),
+	MIDDLE(R.string.middle, 4),
+	HIGH(R.string.high, 5),
+	VERY_HIGH(R.string.very_high, 6),
+	UNKNOWN(R.string.concentration_unknown, 0);
+	
+	private Integer description;
 	
 	private int order;
 	
-	private Concentration(String description, int order) {
+	private Concentration(Integer description, int order) {
 		this.description = description;
 		this.order = order;
 	}
 
 	public String getDescription() {
-		return this.description;
+		return AlergiaskActivity.getContext().getString(this.description);
 	}
 
 	public int getOrder() {
