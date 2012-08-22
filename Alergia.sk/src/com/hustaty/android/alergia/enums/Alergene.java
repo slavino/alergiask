@@ -3,33 +3,36 @@ package com.hustaty.android.alergia.enums;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hustaty.android.alergia.AlergiaskActivity;
+import com.hustaty.android.alergia.R;
+
 public enum Alergene {
 	
-	OVERALL("Peľ (celkom)", 8),
-	AMBROZIA("Ambrózia", 3),
-	BOROVICA("Borovicovité", 1),
-	BREZA("Brezovité", 11),
-	BUK("Bukovité", 12),
-	BURINA("Buriny", 7),
-	CYPRUS_TIS("Cyprusovité a Tisovité", 4),
-	LIESKA("Lieskovité", 10),
-	LIPNICA_TRAVY("Lipnicovité trávy", 2),
-	OLIVA("Olivovité", 14),
-	PALINA("Palina", 6),
-	PRHLAVA("Pŕhľavovité", 5),
-	PLESNE_HUBY("Spóry plesní a húb", 9),
-	VRBA("Vŕbovité", 13);
+	OVERALL(R.string.pollen_overall, 8),
+	AMBROZIA(R.string.pollen_ambrozia, 3),
+	BOROVICA(R.string.pollen_borovica, 1),
+	BREZA(R.string.pollen_breza, 11),
+	BUK(R.string.pollen_buk, 12),
+	BURINA(R.string.pollen_burina, 7),
+	CYPRUS_TIS(R.string.pollen_cyprus_tis, 4),
+	LIESKA(R.string.pollen_lieska, 10),
+	LIPNICA_TRAVY(R.string.pollen_lipnica_travy, 2),
+	OLIVA(R.string.pollen_oliva, 14),
+	PALINA(R.string.pollen_palina, 6),
+	PRHLAVA(R.string.pollen_prhlava, 5),
+	PLESNE_HUBY(R.string.pollen_plesne_huby, 9),
+	VRBA(R.string.pollen_vrba, 13);
 	
-	private String alergeneName;
+	private Integer alergeneName;
 	private int alergeneNumber;
 	
-	private Alergene(String alergeneName, int alergeneNumber) {
+	private Alergene(Integer alergeneName, int alergeneNumber) {
 		this.alergeneName = alergeneName;
 		this.alergeneNumber = alergeneNumber;
 	}
 
 	public String getAlergeneName() {
-		return alergeneName;
+		return AlergiaskActivity.getContext().getResources().getString(alergeneName);
 	}
 
 	public int getAlergeneNumber() {

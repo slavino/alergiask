@@ -37,4 +37,20 @@
     <string name="very_high">Veľmi vysoká</string>
     <string name="concentration_unknown">Neznáma</string>
     
+    <!-- Pollen names -->
+    <string name="pollen_overall">Peľ (celkom)</string>
+    <string name="pollen_ambrozia">Ambrózia</string>
+	<string name="pollen_borovica">Borovicovité</string>
+	<string name="pollen_breza">Brezovité</string>
+	<string name="pollen_buk">Bukovité</string>
+	<string name="pollen_burina">Buriny</string>
+	<string name="pollen_cyprus_tis">Cyprusovité a Tisovité</string>
+	<string name="pollen_lieska">Lieskovité</string>
+	<string name="pollen_lipnica_travy">Lipnicovité trávy</string>
+	<string name="pollen_oliva">Olivovité</string>
+	<string name="pollen_palina">Palina</string>
+	<string name="pollen_prhlava">Pŕhľavovité</string>
+	<string name="pollen_plesne_huby">Spóry plesní a húb</string>
+	<string name="pollen_vrba">Vŕbovité</string>
+    
 </resources>

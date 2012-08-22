@@ -36,5 +36,21 @@
     <string name="high">High</string>
     <string name="very_high">Very high</string>
     <string name="concentration_unknown">Unknown</string>
+   
+    <!-- Pollen names -->
+    <string name="pollen_overall">Pollen (overall)</string>
+    <string name="pollen_ambrozia"></string>
+	<string name="pollen_borovica"></string>
+	<string name="pollen_breza"></string>
+	<string name="pollen_buk"></string>
+	<string name="pollen_burina"></string>
+	<string name="pollen_cyprus_tis"></string>
+	<string name="pollen_lieska"></string>
+	<string name="pollen_lipnica_travy">Grasses</string>
+	<string name="pollen_oliva"></string>
+	<string name="pollen_palina"></string>
+	<string name="pollen_prhlava"></string>
+	<string name="pollen_plesne_huby"></string>
+	<string name="pollen_vrba"></string>
     
 </resources>

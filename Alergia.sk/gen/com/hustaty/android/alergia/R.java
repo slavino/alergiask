@@ -72,6 +72,24 @@ public final class R {
  Concentration 
          */
         public static final int none=0x7f040014;
+        public static final int pollen_ambrozia=0x7f04001c;
+        public static final int pollen_borovica=0x7f04001d;
+        public static final int pollen_breza=0x7f04001e;
+        public static final int pollen_buk=0x7f04001f;
+        public static final int pollen_burina=0x7f040020;
+        public static final int pollen_cyprus_tis=0x7f040021;
+        public static final int pollen_lieska=0x7f040022;
+        public static final int pollen_lipnica_travy=0x7f040023;
+        public static final int pollen_oliva=0x7f040024;
+        /**  Pollen names 
+ Pollen names 
+ Pollen names 
+         */
+        public static final int pollen_overall=0x7f04001b;
+        public static final int pollen_palina=0x7f040025;
+        public static final int pollen_plesne_huby=0x7f040027;
+        public static final int pollen_prhlava=0x7f040026;
+        public static final int pollen_vrba=0x7f040028;
         public static final int prognosis=0x7f04000d;
         public static final int share=0x7f040000;
         public static final int unknown=0x7f040013;
