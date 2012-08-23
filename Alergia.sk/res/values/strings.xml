@@ -43,14 +43,14 @@
 	<string name="pollen_borovica">Pinaceae</string>
 	<string name="pollen_breza">Betulaceae</string>
 	<string name="pollen_buk">Fagaceae</string>
-	<string name="pollen_burina"></string>
-	<string name="pollen_cyprus_tis"></string>
+	<string name="pollen_burina">Weeds</string>
+	<string name="pollen_cyprus_tis">Cupressaceae</string>
 	<string name="pollen_lieska">Corylaceae</string>
 	<string name="pollen_lipnica_travy">Grasses</string>
-	<string name="pollen_oliva"></string>
+	<string name="pollen_oliva">Oleaceae</string>
 	<string name="pollen_palina">Artemisiinae</string>
 	<string name="pollen_prhlava">Urticaceae</string>
-	<string name="pollen_plesne_huby"></string>
-	<string name="pollen_vrba"></string>
+	<string name="pollen_plesne_huby">Spores of mold and fungi</string>
+	<string name="pollen_vrba">Salicaceae</string>
     
 </resources>

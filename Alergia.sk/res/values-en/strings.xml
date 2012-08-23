@@ -39,18 +39,18 @@
    
     <!-- Pollen names -->
     <string name="pollen_overall">Pollen (overall)</string>
-    <string name="pollen_ambrozia"></string>
-	<string name="pollen_borovica"></string>
-	<string name="pollen_breza"></string>
-	<string name="pollen_buk"></string>
-	<string name="pollen_burina"></string>
-	<string name="pollen_cyprus_tis"></string>
-	<string name="pollen_lieska"></string>
+    <string name="pollen_ambrozia">Ambrosia</string>
+	<string name="pollen_borovica">Pine</string>
+	<string name="pollen_breza">Birch</string>
+	<string name="pollen_buk">Beech</string>
+	<string name="pollen_burina">Weeds</string>
+	<string name="pollen_cyprus_tis">Cypress</string>
+	<string name="pollen_lieska">Hazel</string>
 	<string name="pollen_lipnica_travy">Grasses</string>
-	<string name="pollen_oliva"></string>
-	<string name="pollen_palina"></string>
-	<string name="pollen_prhlava"></string>
-	<string name="pollen_plesne_huby"></string>
-	<string name="pollen_vrba"></string>
+	<string name="pollen_oliva">Olive</string>
+	<string name="pollen_palina">Wormwood</string>
+	<string name="pollen_prhlava">Nettle</string>
+	<string name="pollen_plesne_huby">Spores of mold and fungi</string>
+	<string name="pollen_vrba">Willow</string>
     
 </resources>
