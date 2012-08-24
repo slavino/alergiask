@@ -20,6 +20,8 @@
     <string name="concentration">Koncentrácia:</string>
     <string name="prognosis">Prognóza:</string>
     
+    <string name="gotLocation">Zistená poloha:</string>
+    
     <!-- Prognosis -->
     <string name="arrow_up">Zvýšenie koncentrácie</string>
     <string name="equal_up">Koncentrácia ustálená,\n\t\t\t možné zvýšenie</string>

@@ -20,6 +20,8 @@
     <string name="concentration">Concentration:</string>
     <string name="prognosis">Prognosis:</string>
 
+    <string name="gotLocation">Got your location:</string>
+    
     <!-- Prognosis -->
     <string name="arrow_up">Growing concentration</string>
     <string name="equal_up">Stable concentration,\n\t\t\t possible growth</string>

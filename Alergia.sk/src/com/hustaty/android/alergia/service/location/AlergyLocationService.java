@@ -19,6 +19,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.hustaty.android.alergia.AlergiaskActivity;
+import com.hustaty.android.alergia.R;
 import com.hustaty.android.alergia.enums.District;
 import com.hustaty.android.alergia.enums.ZIPCode;
 import com.hustaty.android.alergia.util.LogUtil;
@@ -119,7 +120,8 @@ public class AlergyLocationService {
 			//user notification that application has discovered his location
 			if(!activity.isGotGPSfix()) {
 				Toast toast = Toast.makeText(this.activity.getApplicationContext(), 
-						"Got your location:\n" + address.getSubAdminArea() + ", " + address.getAdminArea() , 
+						AlergiaskActivity.getContext().getString(R.string.gotLocation) +
+						"\n" + address.getSubAdminArea() + ", " + address.getAdminArea() , 
 						Toast.LENGTH_LONG);
 				toast.show();
 			}
